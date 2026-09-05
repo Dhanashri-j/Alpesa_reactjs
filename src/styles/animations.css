@@ -1,0 +1,118 @@
+/* Lightweight motion — theme colors unchanged */
+:root {
+  --anim-fast: 280ms;
+  --anim-med: 560ms;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-shell {
+  animation: pageIn var(--anim-fast) ease;
+}
+
+/* Hero enters on load (above the fold) */
+.hero-inner .eyebrow,
+.hero-inner h1,
+.hero-inner .hero-lede,
+.hero-inner .hero-cta,
+.hero-inner .hero-stats,
+.hero-inner .visa-hero-actions {
+  animation: fadeUp var(--anim-med) var(--ease-out) both;
+}
+.hero-inner .eyebrow { animation-delay: 0s; }
+.hero-inner h1 { animation-delay: .08s; }
+.hero-inner .hero-lede { animation-delay: .16s; }
+.hero-inner .hero-cta,
+.hero-inner .visa-hero-actions { animation-delay: .24s; }
+.hero-inner .hero-stats { animation-delay: .32s; }
+
+/* Scroll-triggered section / card reveal */
+[data-reveal],
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .62s var(--ease-out), transform .62s var(--ease-out);
+}
+[data-reveal].is-in,
+.reveal-stagger > *.is-in {
+  opacity: 1;
+  transform: none;
+}
+.reveal-stagger > .card.is-in:hover,
+.reveal-stagger > .card-3d.is-in:hover,
+.reveal-stagger > .tcard-wrap.is-in:hover .tcard,
+.reveal-stagger > .tcard.is-in:hover,
+.reveal-stagger > .partner-card-wrap.is-in:hover .partner-card,
+.reveal-stagger > .partner-card.is-in:hover,
+.reveal-stagger > .service-card-univ.is-in:hover,
+.reveal-stagger > .visa-overview-card.is-in:hover,
+.reveal-stagger > .visa-support-card.is-in:hover,
+.reveal-stagger > .country-guide.is-in:hover,
+.reveal-stagger > .fact.is-in:hover,
+.reveal-stagger > .ph.is-in:hover,
+.reveal-stagger > .faq.is-in:hover {
+  transform: translateY(-6px);
+}
+.reveal-stagger > .step.is-in:hover {
+  transform: translateX(6px);
+}
+[data-reveal="left"] { transform: translateX(-28px); }
+[data-reveal="right"] { transform: translateX(28px); }
+[data-reveal="scale"] { transform: scale(.97); }
+[data-reveal="left"].is-in,
+[data-reveal="right"].is-in,
+[data-reveal="scale"].is-in { transform: none; }
+
+.reveal-stagger > *:nth-child(1) { transition-delay: .04s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: .1s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: .16s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: .22s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: .28s; }
+.reveal-stagger > *:nth-child(6) { transition-delay: .34s; }
+.reveal-stagger > *:nth-child(7) { transition-delay: .4s; }
+.reveal-stagger > *:nth-child(8) { transition-delay: .46s; }
+.reveal-stagger > *:nth-child(9) { transition-delay: .52s; }
+
+.icon-float { display: inline-block; animation: floaty 2.8s ease-in-out infinite; }
+
+@media (max-width: 900px) {
+  .icon-float { animation: none; }
+  [data-reveal],
+  .reveal-stagger > * {
+    transform: translateY(16px);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-reveal],
+  .reveal-stagger > *,
+  .hero-inner .eyebrow,
+  .hero-inner h1,
+  .hero-inner .hero-lede,
+  .hero-inner .hero-cta,
+  .hero-inner .hero-stats,
+  .hero-inner .visa-hero-actions {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .icon-float { animation: none !important; }
+}

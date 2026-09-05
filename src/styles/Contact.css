@@ -1,0 +1,35 @@
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}
+.contact-panel,.contact-aside{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:32px 28px;box-shadow:0 16px 40px rgba(10,37,64,.06)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;max-width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-family:var(--body);font-size:16px;background:#fff;color:var(--ink);transition:border-color .2s ease,box-shadow .2s ease}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--saffron);box-shadow:0 0 0 3px rgba(217,119,6,.16)}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field textarea{min-height:120px;resize:vertical}
+.info-row{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.info-row:last-of-type{border-bottom:0}
+.info-row .ic{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--accent));font-size:1.15rem}
+.info-row b{display:block;color:var(--navy);font-size:14.5px;margin-bottom:4px}
+.info-row span{display:block;color:var(--ink-soft);font-size:14px;line-height:1.7}
+.info-row span a{color:var(--navy);font-weight:600;text-decoration:none}
+.info-row span a:hover{color:var(--saffron);text-decoration:underline}
+.info-row .hours-block{display:grid;gap:2px}
+.info-row .hours-row{display:grid;grid-template-columns:minmax(0,max-content) 0.75em minmax(0,1fr);align-items:baseline;column-gap:.25em}
+.info-row .hours-days,.info-row .hours-colon,.info-row .hours-time{display:block}
+.contact-call-card{margin-top:22px;background:var(--cream)}
+.contact-call-card .btn{align-self:flex-start}
+.field input.invalid,.field select.invalid,.field textarea.invalid{border-color:#c62828;box-shadow:0 0 0 3px rgba(198,40,40,.14)}
+.field-error{margin:7px 0 0;color:#c62828;font-size:12.5px;line-height:1.45}
+.form-note{margin-top:16px;color:var(--ink-soft);font-size:13.5px;line-height:1.6}
+.hp-field{position:absolute;left:-9999px;height:0;overflow:hidden}
+
+@media(max-width:900px){
+  .contact-grid{grid-template-columns:1fr}
+  .contact-panel,.contact-aside{padding:24px 20px}
+}
+@media(max-width:480px){
+  .contact-panel,.contact-aside{padding:20px 16px}
+  .info-row{gap:10px}
+  .info-row .hours-row{font-size:13.5px}
+  .contact-call-card .btn{width:100%;justify-content:center}
+}

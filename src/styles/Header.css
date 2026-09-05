@@ -1,0 +1,106 @@
+/* Light text-link navigation — see also header block in common.css */
+
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.has-submenu .submenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translate(-50%, 8px);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 36px rgba(10, 37, 64, .12);
+  border-radius: 14px;
+  padding: 10px 8px;
+  min-width: 196px;
+  flex-direction: column;
+  z-index: 80;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  pointer-events: none;
+}
+
+.has-submenu .submenu a {
+  padding: 9px 12px;
+  display: block;
+  color: var(--ink-soft);
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+}
+
+.has-submenu .submenu a::after {
+  display: none;
+}
+
+.has-submenu .submenu a:hover {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+.has-submenu:hover .submenu,
+.has-submenu.open .submenu {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  display: flex;
+}
+
+.chevron {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform .2s ease;
+  font-size: .75em;
+  line-height: 1;
+  opacity: .7;
+}
+
+.has-submenu.open .chevron,
+.has-submenu:hover .chevron {
+  transform: rotate(180deg);
+}
+
+.nav-links a:focus-visible,
+.nav-links button:focus-visible {
+  outline: 2px solid var(--saffron);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (max-width: 1100px) {
+  .has-submenu .submenu,
+  .has-submenu:hover .submenu,
+  .has-submenu.open .submenu {
+    position: static;
+    left: auto;
+    transform: none;
+    box-shadow: none;
+    border: 0;
+    background: transparent;
+    padding: 4px 0 8px 10px;
+    min-width: 0;
+    border-radius: 0;
+  }
+
+  .has-submenu .submenu {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+
+  .has-submenu.open .submenu {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    display: flex;
+  }
+}
