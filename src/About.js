@@ -37,6 +37,17 @@ function About() {
         </div>
       </section>
 
+      <section className="section" id="global">
+        <div className="section-header" data-reveal>
+          <div className="section-label">Global</div>
+          <h2 className="section-title">Our Global <em>Network</em></h2>
+        </div>
+        <div className="card about-global" data-reveal>
+          <p>Alpesa Education Services (AES) is part of Global Education Services Inc. (GESI), our parent company headquartered in Nashville, Tennessee, USA. Founded in 2022, GESI works directly with partner universities across the United States to place international students in the right programs. Together, the two offices give students support on both sides of the journey — from the first counselling session in India through admission, visa, and arrival on campus in the US.</p>
+          <p>Having a US-based parent company means our students are not left on their own once they land. GESI maintains direct working relationships with its partner universities and their international student offices, so questions about admissions, I-20s, program transfers, or academic standing can be raised through people who already know the institution. For families in India, it also means the advice you receive in Pune is grounded in what is actually happening on US campuses right now.</p>
+        </div>
+      </section>
+
       <section className="band-navy">
         <div className="section">
           <div className="section-header" data-reveal>

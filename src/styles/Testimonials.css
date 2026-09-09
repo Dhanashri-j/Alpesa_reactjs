@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  margin-top: 48px;
+  margin-top: 0;
   align-items: start;
 }
 
@@ -107,6 +107,12 @@
   line-height: 1.35;
 }
 
+.g-review-meta {
+  color: #188038 !important;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
 .tcard-date {
   justify-self: end;
   padding: 5px 8px;
@@ -178,6 +184,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .tcard-grid {
+    gap: 14px;
+  }
+  .tcard {
+    padding: 20px 18px 16px;
+  }
+}
+
 @media (max-width: 640px) {
   .tcard-grid {
     display: flex;
@@ -186,7 +201,7 @@
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 16px;
     padding: 4px 16px 18px;
-    margin: 36px -16px 0;
+    margin: 12px -16px 0;
     -webkit-overflow-scrolling: touch;
   }
 

@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FlagPanel from './FlagPanel';
 import { flagSrc as flagUrl } from './flagSrc';
+import { VISA_NAV } from './siteData';
 
 function VisaServices() {
   const visaInfo = {
@@ -149,7 +150,7 @@ function VisaServices() {
     }
   };
 
-  const countries = Object.keys(visaInfo);
+  const countries = VISA_NAV.map((item) => item.key).filter((key) => visaInfo[key]);
   const processSteps = [
     { num: '01', title: 'Visa Requirements Assessment', text: 'We evaluate your profile against your destination country\'s specific visa requirements — identifying any gaps or concerns early.' },
     { num: '02', title: 'Documentation Organization & Preparation', text: 'We provide a detailed checklist, help you organize documents, and ensure everything meets official standards (notarization, translations, etc.).' },
@@ -163,7 +164,7 @@ function VisaServices() {
     <>
       <Header activePage="visa-services" />
 
-      <header className="hero visa-hero">
+      <header className="hero visa-hero" id="visa-services">
         <div className="hero-inner">
           <span className="eyebrow">Visa Services</span>
           <h1>Your route abroad, made <em>clear.</em></h1>

@@ -9,9 +9,9 @@ function HoursBlock() {
         <span className="hours-time">9:30 AM–6:30 PM</span>
       </span>
       <span className="hours-row">
-        <span className="hours-days">Sun</span>
+        <span className="hours-days">Sunday</span>
         <span className="hours-colon" aria-hidden="true">:</span>
-        <span className="hours-time">Closed</span>
+        <span className="hours-time">(Appointments only)</span>
       </span>
     </span>
   );

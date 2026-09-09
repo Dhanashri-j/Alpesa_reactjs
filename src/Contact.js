@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import HoursBlock from './HoursBlock';
 import Modal from './Modal';
+import { OFFICE_ADDRESS, PHONE_PRIMARY, PHONE_SECONDARY } from './siteData';
 import emailjs from '@emailjs/browser';
 
 const EMAIL_TO = 'info@alpesaeducationservices.com';
@@ -292,7 +293,7 @@ function Contact() {
               <span className="ic">📞</span>
               <div>
                 <b>Phone</b>
-                <span><a href="tel:+918989550909">+91 89895 50909</a> &nbsp;·&nbsp; <a href="tel:+918668558349">+91 86685 58349</a></span>
+                <span><a href={PHONE_PRIMARY.href}>{PHONE_PRIMARY.display}</a> &nbsp;·&nbsp; <a href={PHONE_SECONDARY.href}>{PHONE_SECONDARY.display}</a></span>
               </div>
             </div>
             <div className="info-row">
@@ -313,7 +314,7 @@ function Contact() {
               <span className="ic">📍</span>
               <div>
                 <b>Office</b>
-                <span>Dnyaneshwar Paduka Chowk, 304/305, Ferguson College Rd, Shivajinagar, Pune, Maharashtra 411005, India</span>
+                <span>{OFFICE_ADDRESS}</span>
               </div>
             </div>
             <div className="info-row">

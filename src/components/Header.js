@@ -153,8 +153,8 @@ function Header({ activePage }) {
     <>
       <div className="topbar">
         <div className="topbar-inner">
-          <span>📞 <a href="tel:+918989550909">+91 89895 50909</a> &nbsp;|&nbsp; <a href="tel:+918668558349">+91 86685 58349</a></span>
-          <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Spring &amp; Fall Intakes Open</span>
+          <span>📞 <a href="tel:+918989550909">+91 89895 50909</a> &nbsp;|&nbsp; <a href="tel:+918984616204">+91 89846 16204</a></span>
+          <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Admissions Open, Apply now</span>
         </div>
       </div>
 

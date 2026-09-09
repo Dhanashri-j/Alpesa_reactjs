@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FlagPanel from './FlagPanel';
 import { flagSrc as flagUrl } from './flagSrc';
+import { STUDY_DESTINATION_NAV } from './siteData';
 
 function StudyDestinations() {
   const [selectedCountry, setSelectedCountry] = useState('usa');
@@ -19,7 +20,7 @@ function StudyDestinations() {
       topUniversities: ['Harvard University', 'Stanford University', 'MIT', 'Yale University', 'Princeton University', 'University of Chicago', 'Penn University', 'Columbia University']
     },
     uk: {
-      name: 'United Kingdom',
+      name: 'UK',
       flag: '🇬🇧',
       info: 'Historic universities, specialized programs, and a compact study timeline. Graduate in 1 year with quality education and global recognition.',
       tuition: '$15,000 - $40,000 per year',
@@ -135,24 +136,27 @@ function StudyDestinations() {
 
       <div className="country-nav">
         <div className="country-nav-inner" role="tablist" aria-label="Study destinations">
-          {Object.keys(destinations).map((key) => (
+          <span className="dest-flag-heading">Study Destinations:</span>
+          {STUDY_DESTINATION_NAV.filter((item) => destinations[item.key]).map((item) => (
             <button
-              key={key}
+              key={item.key}
               type="button"
-              id={`tab-${key}`}
+              id={`tab-${item.key}`}
               role="tab"
-              aria-selected={selectedCountry === key}
-              aria-controls={`panel-${key}`}
-              className={`country-button ${selectedCountry === key ? 'selected' : ''}`}
-              onClick={() => setSelectedCountry(key)}
+              aria-selected={selectedCountry === item.key}
+              aria-controls={`panel-${item.key}`}
+              className={`country-button ${selectedCountry === item.key ? 'selected' : ''}`}
+              onMouseEnter={() => setSelectedCountry(item.key)}
+              onFocus={() => setSelectedCountry(item.key)}
+              onClick={() => setSelectedCountry(item.key)}
             >
               <img
-                src={flagUrl(key)}
+                src={flagUrl(item.key)}
                 alt=""
                 aria-hidden="true"
                 className="flag-img flag-img-sm"
               />
-              <span className="name">{destinations[key].name}</span>
+              <span className="name">{item.name}</span>
             </button>
           ))}
         </div>
@@ -194,15 +198,6 @@ function StudyDestinations() {
                 ))}
               </div>
             </div>
-
-            <div className="dest-block">
-              <h3 className="dest-uni-title">Top universities</h3>
-              <ul className="uni-list">
-                {current.topUniversities.map((uni, idx) => (
-                  <li key={idx}>{uni}</li>
-                ))}
-              </ul>
-            </div>
           </div>
         </article>
       </section>
@@ -215,7 +210,7 @@ function StudyDestinations() {
             <p className="section-intro">From pre-arrival preparations to on-campus success, we support you throughout your journey.</p>
           </div>
 
-          <div className="grid grid-3 reveal-stagger" style={{ marginTop: '50px' }}>
+          <div className="grid grid-3 reveal-stagger">
             <div className="card card-3d">
               <span className="ico">📋</span>
               <h3>Pre-Arrival</h3>

@@ -1,13 +1,12 @@
-.visa-hero{padding:78px 24px 86px}
 .visa-hero .hero-lede{max-width:620px}
 .visa-hero-actions{display:flex;gap:12px;flex-wrap:wrap}
 .flag-img-lg{width:48px;height:32px;border-radius:6px;box-shadow:0 8px 16px rgba(0,0,0,.2)}
-.visa-popular{padding-bottom:24px}
+.visa-popular{padding-bottom:0}
 .visa-flag-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 .visa-flag-chip{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--navy);text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 8px 0 rgba(10,37,64,.08),0 16px 28px rgba(10,37,64,.08);transition:transform .2s ease,box-shadow .2s ease}
 .visa-flag-chip:hover{transform:translateY(-4px);box-shadow:0 12px 0 rgba(10,37,64,.1),0 22px 36px rgba(10,37,64,.12)}
 .visa-flag-chip .flag-img{width:28px;height:18px;border-radius:4px}
-.country-guides{max-width:1200px;margin:0 auto;padding:20px 24px 80px;display:grid;gap:42px}
+.country-guides{max-width:1200px;margin:0 auto;padding:0 24px 56px;display:grid;gap:32px}
 .visa-country{border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 18px 40px rgba(10,37,64,.08)}
 .visa-country-bar{padding:0}
 .visa-country-bar-inner{display:flex;align-items:center;gap:16px;padding:22px 28px}
@@ -29,8 +28,8 @@
 .country-tips ul{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;padding-left:17px;margin:0}
 .country-tips li{color:var(--ink-soft);font-size:13.5px;line-height:1.6}
 .country-tips li::marker{color:var(--saffron)}
-.visa-comparison .section{padding-top:76px;padding-bottom:76px}
-.visa-comparison .section-header{margin-bottom:38px}
+.visa-comparison .section{padding-top:48px;padding-bottom:56px}
+.visa-comparison .section-header{margin-bottom:24px}
 .comparison-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(255,255,255,.04)}
 .comparison-wrap table{width:100%;min-width:860px;border-collapse:collapse;text-align:left;font-size:13px}
 .comparison-wrap th,.comparison-wrap td{padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.12);vertical-align:top}
@@ -42,7 +41,7 @@
 .visa-support-card span,.visa-process-card span{font-size:11px;letter-spacing:.16em;color:var(--saffron);font-weight:700}
 .visa-support-card h3,.visa-process-card h3{font-family:var(--display);font-size:1.15rem;color:var(--navy);line-height:1.25;margin:18px 0 10px}
 .visa-support-card p,.visa-process-card p{font-size:14px;color:var(--ink-soft);line-height:1.65;margin:0}
-.visa-process-band{padding-top:20px}
+.visa-process-band{padding-top:0}
 .visa-process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 
 @media(max-width:1100px){
@@ -51,16 +50,19 @@
 @media(max-width:900px){
   .visa-stat-grid,.visa-split{grid-template-columns:1fr 1fr}
   .visa-stat strong{font-size:1.15rem}
+  .country-guides{padding:0 16px 48px}
+  .visa-country-bar-inner,.visa-country-body{padding:20px 18px}
 }
 @media(max-width:640px){
-  .visa-hero{padding:56px 16px 64px}
   .visa-hero-actions{flex-direction:column;align-items:stretch}
   .visa-hero-actions .btn{justify-content:center;width:100%}
-  .country-guides{padding:10px 16px 56px}
+  .country-guides{padding:10px 16px 48px}
   .visa-country-bar-inner,.visa-country-body{padding:18px 16px}
   .country-number{display:none}
   .visa-stat-grid,.visa-split,.visa-support-grid,.visa-process-grid{grid-template-columns:1fr}
   .country-tips ul{grid-template-columns:1fr}
-  .visa-comparison .section{padding-top:58px;padding-bottom:58px}
+  .visa-comparison .section{padding-top:40px;padding-bottom:48px}
   .visa-flag-row{justify-content:flex-start}
+  .visa-flag-chip{font-size:13.5px;padding:9px 12px}
+  .comparison-wrap{margin:0 -4px}
 }

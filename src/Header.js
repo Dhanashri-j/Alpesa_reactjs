@@ -1,15 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles/Header.css';
+import HoursBlock from './HoursBlock';
+import { VISA_NAV, PHONE_PRIMARY, PHONE_SECONDARY } from './siteData';
+
+export { VISA_NAV };
+
+const DESKTOP_NAV = '(min-width: 1281px)';
+const isDesktopNav = () => typeof window !== 'undefined' && window.matchMedia(DESKTOP_NAV).matches;
 
 function Header({ activePage }) {
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [visaOpen, setVisaOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
   const aboutSubmenuRef = useRef(null);
+  const visaSubmenuRef = useRef(null);
   const loginSubmenuRef = useRef(null);
   const aboutAnchorRef = useRef(null);
+  const visaAnchorRef = useRef(null);
   const loginAnchorRef = useRef(null);
+  const leaveTimer = useRef(null);
+
+  const clearLeaveTimer = () => {
+    if (leaveTimer.current) {
+      window.clearTimeout(leaveTimer.current);
+      leaveTimer.current = null;
+    }
+  };
 
   const handleMenuToggle = () => {
     setMenuOpen(prev => !prev);
@@ -18,14 +36,73 @@ function Header({ activePage }) {
   const closeMenu = () => {
     setMenuOpen(false);
     setAboutOpen(false);
+    setVisaOpen(false);
     setLoginOpen(false);
   };
+
+  const openSubmenu = (which) => {
+    if (which === 'about') {
+      setAboutOpen(true);
+      setLoginOpen(false);
+    } else if (which === 'visa') {
+      setAboutOpen(true);
+      setVisaOpen(true);
+      setLoginOpen(false);
+    } else {
+      setLoginOpen(true);
+      setAboutOpen(false);
+      setVisaOpen(false);
+    }
+  };
+
+  const handleDesktopEnter = (which) => {
+    if (!isDesktopNav()) return;
+    clearLeaveTimer();
+    openSubmenu(which);
+  };
+
+  const handleDesktopLeave = () => {
+    if (!isDesktopNav()) return;
+    clearLeaveTimer();
+    leaveTimer.current = window.setTimeout(() => {
+      setAboutOpen(false);
+      setVisaOpen(false);
+      setLoginOpen(false);
+    }, 120);
+  };
+
+  const handleMobileToggle = (which) => {
+    if (isDesktopNav()) return;
+    if (which === 'about') {
+      setLoginOpen(false);
+      setAboutOpen((prev) => {
+        const next = !prev;
+        if (!next) setVisaOpen(false);
+        return next;
+      });
+    } else if (which === 'visa') {
+      setLoginOpen(false);
+      setAboutOpen(true);
+      setVisaOpen((prev) => !prev);
+    } else {
+      setAboutOpen(false);
+      setVisaOpen(false);
+      setLoginOpen((prev) => !prev);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     function handleDocClick(e) {
       if (!navRef.current) return;
       if (!navRef.current.contains(e.target)) {
         setAboutOpen(false);
+        setVisaOpen(false);
         setLoginOpen(false);
       }
     }
@@ -51,15 +128,15 @@ function Header({ activePage }) {
     items[i].focus();
   };
 
-  const handleSubmenuToggleKey = (e, isOpen, setOpen, otherSetOpen, submenuRef, anchorRef) => {
+  const handleSubmenuToggleKey = (e, isOpen, setOpen, otherClosers, submenuRef, anchorRef) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      otherSetOpen(false);
+      otherClosers();
       setOpen(true);
       setTimeout(() => focusMenuItem(submenuRef.current, 0), 0);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      otherSetOpen(false);
+      otherClosers();
       setOpen(true);
       setTimeout(() => focusMenuItem(submenuRef.current, -1), 0);
     } else if (e.key === 'Escape' && isOpen) {
@@ -97,6 +174,13 @@ function Header({ activePage }) {
     const items = getMenuItems(submenu);
     items.forEach((it, i) => it.setAttribute('tabindex', aboutOpen && i === 0 ? '0' : '-1'));
   }, [aboutOpen]);
+
+  useEffect(() => {
+    const submenu = visaSubmenuRef.current;
+    if (!submenu) return;
+    const items = getMenuItems(submenu);
+    items.forEach((it, i) => it.setAttribute('tabindex', visaOpen && i === 0 ? '0' : '-1'));
+  }, [visaOpen]);
 
   useEffect(() => {
     const submenu = loginSubmenuRef.current;
@@ -167,8 +251,11 @@ function Header({ activePage }) {
     <>
       <div className="topbar">
         <div className="topbar-inner">
-          <span>📞 <a href="tel:+918989550909">+91 89895 50909</a> &nbsp;|&nbsp; <a href="tel:+918668558349">+91 86685 58349</a></span>
-          <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Spring &amp; Fall Intakes Open</span>
+          <span>📞 <a href={PHONE_PRIMARY.href}>{PHONE_PRIMARY.display}</a> &nbsp;|&nbsp; <a href={PHONE_SECONDARY.href}>{PHONE_SECONDARY.display}</a></span>
+          <span className="topbar-hours" aria-label="Office hours">
+            <HoursBlock />
+          </span>
+          <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Admissions Open, Apply now</span>
         </div>
       </div>
 
@@ -176,11 +263,11 @@ function Header({ activePage }) {
         <nav className="nav-inner" role="navigation" aria-label="Main">
           <a href="#/" className="brand">
             <img
-              src="/AES Final Logo.png"
+              src="/aes-logo.png"
               alt="Alpesa Education Services"
               className="brand-logo"
-              width="168"
-              height="56"
+              width="176"
+              height="60"
               decoding="async"
               fetchPriority="high"
             />
@@ -192,20 +279,20 @@ function Header({ activePage }) {
           </button>
           <div className={`nav-links${menuOpen ? ' open' : ''}`} id="navlinks" ref={navRef} role="menubar" aria-label="Primary menu">
             <a role="menuitem" href="#/" className={activePage === 'home' ? 'active' : ''} onClick={closeMenu}>Home</a>
-            <div className={`nav-item has-submenu${aboutOpen ? ' open' : ''}`}>
+            <div
+              className={`nav-item has-submenu${aboutOpen ? ' open' : ''}`}
+              onMouseEnter={() => handleDesktopEnter('about')}
+              onMouseLeave={handleDesktopLeave}
+            >
               <button
                 type="button"
                 ref={aboutAnchorRef}
-                className={activePage === 'about' ? 'active' : ''}
+                className={['about', 'visa-services', 'services', 'partners', 'legal-services'].includes(activePage) ? 'active' : ''}
                 aria-haspopup="true"
                 aria-expanded={aboutOpen}
                 aria-controls="about-submenu"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setLoginOpen(false);
-                  setAboutOpen(prev => !prev);
-                }}
-                onKeyDown={(e) => handleSubmenuToggleKey(e, aboutOpen, setAboutOpen, setLoginOpen, aboutSubmenuRef, aboutAnchorRef)}
+                onClick={() => handleMobileToggle('about')}
+                onKeyDown={(e) => handleSubmenuToggleKey(e, aboutOpen, setAboutOpen, () => { setVisaOpen(false); setLoginOpen(false); }, aboutSubmenuRef, aboutAnchorRef)}
               >
                 About <span className="chevron" aria-hidden="true">▾</span>
                 <span className="sr-only">Opens About menu</span>
@@ -218,8 +305,55 @@ function Header({ activePage }) {
                 onKeyDown={(e) => handleSubmenuKeyDown(e, aboutSubmenuRef.current, setAboutOpen, aboutAnchorRef)}
               >
                 <a href="#about" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>About Us</a>
+                <a href="#global" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>Global</a>
                 <a href="#services" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>Services</a>
-                <a href="#visa-services" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>Visa Services</a>
+                <div
+                  className={`submenu-item${visaOpen ? ' open' : ''}`}
+                  onMouseEnter={() => {
+                    if (!isDesktopNav()) return;
+                    clearLeaveTimer();
+                    setAboutOpen(true);
+                    setVisaOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    if (!isDesktopNav()) return;
+                    clearLeaveTimer();
+                    leaveTimer.current = window.setTimeout(() => setVisaOpen(false), 120);
+                  }}
+                >
+                  <button
+                    type="button"
+                    ref={visaAnchorRef}
+                    className="submenu-parent"
+                    aria-haspopup="true"
+                    aria-expanded={visaOpen}
+                    aria-controls="visa-submenu"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleMobileToggle('visa'); }}
+                    onKeyDown={(e) => handleSubmenuToggleKey(e, visaOpen, setVisaOpen, () => { setLoginOpen(false); setAboutOpen(true); }, visaSubmenuRef, visaAnchorRef)}
+                  >
+                    Visa Services <span className="chevron nested-chevron" aria-hidden="true">▸</span>
+                  </button>
+                  <div
+                    className="submenu submenu-nested"
+                    id="visa-submenu"
+                    role="menu"
+                    ref={visaSubmenuRef}
+                    onKeyDown={(e) => handleSubmenuKeyDown(e, visaSubmenuRef.current, setVisaOpen, visaAnchorRef)}
+                  >
+                    <a href="#visa-services" role="menuitem" tabIndex={visaOpen ? 0 : -1} onClick={closeMenu}>All visa guides</a>
+                    {VISA_NAV.map((country) => (
+                      <a
+                        key={country.key}
+                        href={`#guide-${country.key}`}
+                        role="menuitem"
+                        tabIndex={visaOpen ? 0 : -1}
+                        onClick={closeMenu}
+                      >
+                        {country.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
                 <a href="#partners" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>Partners</a>
                 <a href="#legal-services" role="menuitem" tabIndex={aboutOpen ? 0 : -1} onClick={closeMenu}>Legal Services</a>
               </div>
@@ -230,7 +364,11 @@ function Header({ activePage }) {
             <a role="menuitem" href="#contact" className={activePage === 'contact' ? 'active' : ''} onClick={closeMenu}>Contact</a>
             <a role="menuitem" href="mailto:info@alpesaeducationservices.com" className="nav-cta" onClick={closeMenu}>Free Consultation</a>
 
-            <div className={`nav-item has-submenu${loginOpen ? ' open' : ''}`}>
+            <div
+              className={`nav-item has-submenu${loginOpen ? ' open' : ''}`}
+              onMouseEnter={() => handleDesktopEnter('login')}
+              onMouseLeave={handleDesktopLeave}
+            >
               <button
                 type="button"
                 ref={loginAnchorRef}
@@ -238,12 +376,8 @@ function Header({ activePage }) {
                 aria-haspopup="true"
                 aria-expanded={loginOpen}
                 aria-controls="Login-submenu"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setAboutOpen(false);
-                  setLoginOpen(prev => !prev);
-                }}
-                onKeyDown={(e) => handleSubmenuToggleKey(e, loginOpen, setLoginOpen, setAboutOpen, loginSubmenuRef, loginAnchorRef)}
+                onClick={() => handleMobileToggle('login')}
+                onKeyDown={(e) => handleSubmenuToggleKey(e, loginOpen, setLoginOpen, () => { setAboutOpen(false); setVisaOpen(false); }, loginSubmenuRef, loginAnchorRef)}
               >
                 SignIn <span className="chevron" aria-hidden="true">▾</span>
                 <span className="sr-only">Opens SignIn</span>

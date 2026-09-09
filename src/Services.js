@@ -208,7 +208,7 @@ function Services() {
             <p className="section-intro">We combine strategic counselling, visa preparation, funding guidance, and ongoing support so students and partners can move forward with confidence.</p>
           </div>
 
-          <div className="grid grid-3 reveal-stagger" style={{ marginTop: '50px' }}>
+          <div className="grid grid-3 reveal-stagger">
             <div className="card card-3d">
               <span className="ico">✅</span>
               <h3>Clear guidance</h3>

@@ -32,7 +32,7 @@ function Footer() {
         </div>
         <div>
           <h4>Get in touch</h4>
-          <p>📞 +91 89895 50909<br />📞 +91 86685 58349</p>
+          <p>📞 +91 89895 50909<br />📞 +91 89846 16204</p>
           <p>✉️ info@alpesaeducationservices.com</p>
           <p>🌐 alpesaeducationservices.com</p>
         </div>
