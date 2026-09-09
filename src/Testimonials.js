@@ -1,65 +1,17 @@
-import React from 'react';
-import './Testimonials.css';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import testimonials from './testimonialsData';
+import './styles/Testimonials.css';
 
 function Testimonials() {
-  const testimonials = [
-    {
-      quote: "Alpesa made the entire process so smooth. I was overwhelmed at first, but their counselling and SOP support was exactly what I needed. I got admits from 5 universities!",
-      name: "Priya Sharma",
-      role: "MS Computer Science, Stanford University",
-      initials: "PS"
-    },
-    {
-      quote: "The visa guidance was incredibly detailed. Every document was checked, and the mock interviews really helped me prepare. I got my visa on the first attempt.",
-      name: "Arjun Patel",
-      role: "MS Finance, University of Chicago",
-      initials: "AP"
-    },
-    {
-      quote: "What impressed me most was the after-arrival support. They helped me find accommodation, opened a bank account, and connected me with mentors on campus. They truly care.",
-      name: "Divya Iyer",
-      role: "MBA, London Business School",
-      initials: "DI"
-    },
-    {
-      quote: "Scholarship hunting is stressful, but Alpesa found me funding I didn't know existed. I ended up with 60% tuition waiver + living stipend. Life-changing!",
-      name: "Rohan Desai",
-      role: "BTech Mechanical Engineering, University of Toronto",
-      initials: "RD"
-    },
-    {
-      quote: "Coming from a small town, I was terrified about studying abroad. Alpesa's counsellors were like mentors. They answered every question, no matter how silly. Highly recommended!",
-      name: "Anjali Verma",
-      role: "BA Psychology, University of Melbourne",
-      initials: "AV"
-    },
-    {
-      quote: "The test prep guidance was spot-on. I scored 720 on GMAT on my first attempt. Their strategy for timing practice tests and identifying weak areas really worked.",
-      name: "Vikram Singh",
-      role: "MBA, INSEAD France",
-      initials: "VS"
-    },
-    {
-      quote: "I was rejected once, but Alpesa didn't give up on me. They helped me reapply with a stronger SOP and I got in. Their persistence made all the difference.",
-      name: "Neha Gupta",
-      role: "MS Data Science, UC Berkeley",
-      initials: "NG"
-    },
-    {
-      quote: "The on-campus support didn't stop after I arrived. They've helped me with internship placements, visa extensions, and general advice. True partnership!",
-      name: "Aditya Kumar",
-      role: "BE Civil Engineering, University of Sydney",
-      initials: "AK"
-    }
-  ];
+  const [openCard, setOpenCard] = useState(null);
 
   return (
     <>
       <Header activePage="testimonials" />
 
-      <header className="hero">
+      <header className="hero relative overflow-hidden">
         <div className="hero-inner">
           <span className="eyebrow">Testimonials</span>
           <h1>Real success stories from <em>real students</em>.</h1>
@@ -67,38 +19,58 @@ function Testimonials() {
         </div>
       </header>
 
+      <main className="min-h-screen bg-cream">
       <section className="section">
-        <div className="section-header center">
-          <div className="section-label">What Students Say</div>
+        <div className="section-header center" data-reveal>
+          <div className="section-label">Google Reviews</div>
           <h2 className="section-title">Success stories, <em>verified</em>.</h2>
-          <p className="section-intro">These are real students who've worked with us. Their admissions, visa outcomes, and career progress speak to the quality of our guidance.</p>
+          <p className="section-intro">Reviews from students and families who worked with AES, as shared on Google.</p>
         </div>
 
-        <div className="grid grid-2" style={{ marginTop: '50px' }}>
-          {testimonials.map((testimonial, idx) => (
-            <div key={idx} className="tcard">
-              <div className="quote">"</div>
-              <p>{testimonial.quote}</p>
-              <div className="who">
-                <div className="av">{testimonial.initials}</div>
-                <div>
-                  <b>{testimonial.name}</b>
-                  <span>{testimonial.role}</span>
-                </div>
+        <div className="tcard-grid reveal-stagger">
+          {testimonials.map((testimonial, idx) => {
+            const isLong = testimonial.quote.length > 180;
+            const isOpen = openCard === idx;
+            return (
+              <div key={testimonial.name} className="tcard-wrap">
+                <article className={`tcard${isOpen ? ' is-open' : ''}`}>
+                  <header className="tcard-head">
+                    <div className="av" aria-hidden="true">{testimonial.initials}</div>
+                    <div className="tcard-meta">
+                      <b>{testimonial.name}</b>
+                      {testimonial.role ? <span>{testimonial.role}</span> : null}
+                      <span className="g-review-meta" aria-label="5 stars on Google">★★★★★ · Google review</span>
+                    </div>
+                    {testimonial.date ? (
+                      <time className="tcard-date">{testimonial.date}</time>
+                    ) : null}
+                  </header>
+                  <p className="tcard-body">{testimonial.quote}</p>
+                  {isLong ? (
+                    <button
+                      type="button"
+                      className="tcard-more"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenCard((prev) => (prev === idx ? null : idx))}
+                    >
+                      {isOpen ? 'Show less' : 'Read full story'}
+                    </button>
+                  ) : null}
+                </article>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       <section className="band-navy">
-        <div className="section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-          <div className="section-header center">
+        <div className="section">
+          <div className="section-header center" data-reveal>
             <div className="section-label">By The Numbers</div>
             <h2 className="section-title">Our track <em>record</em>.</h2>
           </div>
 
-          <div className="facts">
+          <div className="facts reveal-stagger">
             <div className="fact">
               <div className="l">Students Guided</div>
               <div className="v">500+</div>
@@ -132,12 +104,12 @@ function Testimonials() {
       </section>
 
       <section className="section">
-        <div className="section-header center">
-          <h2 className="section-title">The Alpesa <em>difference</em>.</h2>
+        <div className="section-header center" data-reveal>
+          <h2 className="section-title">The AES Difference</h2>
           <p className="section-intro">What makes our approach unique and effective.</p>
         </div>
 
-        <div className="grid grid-3" style={{ marginTop: '50px' }}>
+          <div className="grid grid-3 reveal-stagger">
           <div className="card">
             <span className="ico">🎯</span>
             <h3>Personalized Strategy</h3>
@@ -177,12 +149,12 @@ function Testimonials() {
       </section>
 
       <section className="section">
-        <div className="section-header center">
+        <div className="section-header center" data-reveal>
           <h2 className="section-title">Student <em>journey</em>.</h2>
           <p className="section-intro">A typical timeline from first consultation to campus arrival.</p>
         </div>
 
-        <div className="steps" style={{ maxWidth: '900px', margin: '50px auto 0' }}>
+        <div className="steps reveal-stagger" style={{ maxWidth: '900px', margin: '8px auto 0' }}>
           <div className="step">
             <div className="step-num">1</div>
             <div>
@@ -233,7 +205,7 @@ function Testimonials() {
         </div>
       </section>
 
-      <section className="section cta">
+      <section className="section cta" data-reveal>
         <div className="cta-inner">
           <h2>Ready to write your own success story?</h2>
           <p>Let's start your journey to study abroad today.</p>
@@ -243,6 +215,7 @@ function Testimonials() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
     </>

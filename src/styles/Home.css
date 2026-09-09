@@ -1,0 +1,95 @@
+.home-hero{
+  background-image:
+    linear-gradient(180deg,rgba(10,37,64,.18) 0%,rgba(10,37,64,.28) 55%,rgba(10,37,64,.72) 100%),
+    linear-gradient(100deg,rgba(10,37,64,.92) 0%,rgba(10,37,64,.78) 40%,rgba(10,37,64,.5) 100%),
+    var(--hero-photo);
+  background-size:cover;
+  background-position:center;
+}
+.home-hero::before{background-image:linear-gradient(135deg,rgba(19,78,74,.22),transparent 48%),radial-gradient(circle at 78% 24%,rgba(245,158,11,.2),transparent 36%);}
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px 28px;
+  margin-top:40px;
+  max-width:960px;
+  width:100%;
+  position:relative;
+  z-index:2;
+  background:rgba(10,37,64,.94);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:18px;
+  padding:22px 24px 20px;
+  box-sizing:border-box;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+.stat{min-width:0;max-width:100%}
+.stat strong{
+  display:block;
+  font-family:var(--display);
+  font-size:clamp(1.35rem,2.2vw,2rem);
+  font-weight:600;
+  color:var(--saffron-bright);
+  margin-bottom:6px;
+  line-height:1.15;
+  overflow-wrap:break-word;
+  text-shadow:0 2px 14px rgba(10,37,64,.55);
+}
+.stat span{
+  display:block;
+  font-size:11.5px;
+  color:rgba(255,255,255,.82);
+  letter-spacing:.07em;
+  font-weight:600;
+  line-height:1.4;
+  text-shadow:0 1px 10px rgba(10,37,64,.6);
+}
+.home-country-flag{display:block;width:56px;height:36px;margin-bottom:18px;border-radius:6px;box-shadow:0 8px 16px rgba(10,37,64,.2)}
+.home-visa-card .flag-watermark{opacity:.14;width:58%;height:80%}
+.home-t-marquee{padding:48px 0 56px;overflow:hidden;background:#fff;border-top:1px solid var(--line)}
+.home-t-marquee .section-header{padding:0 24px}
+.home-t-marquee .section-more{padding:0 24px}
+.dest-flag-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;max-width:1100px;margin:0 auto}
+.dest-flag-bar .dest-flag-heading{font-weight:700;color:var(--navy);font-size:15.5px;margin-right:4px}
+.dest-flag-bar .country-button{text-decoration:none;color:inherit}
+.t-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.t-marquee-track{display:flex;gap:18px;width:max-content;padding:8px 24px 4px;animation:tMarquee 42s linear infinite}
+.t-marquee:hover .t-marquee-track{animation-play-state:paused}
+.t-marquee-card{flex:0 0 320px;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:22px 20px 18px;box-shadow:0 10px 24px rgba(10,37,64,.06)}
+.t-marquee-card p{margin:0 0 14px;color:var(--ink-soft);font-size:14.5px;line-height:1.65}
+.t-marquee-card strong{display:block;color:var(--navy);font-size:14.5px}
+.t-marquee-card span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+@keyframes tMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){
+  .t-marquee-track{animation:none}
+}
+
+@media(max-width:1280px){
+	.home-hero{
+		background-image:
+			linear-gradient(180deg,rgba(10,37,64,.88) 0%,rgba(10,37,64,.9) 100%),
+			var(--hero-photo);
+		background-position:center;
+	}
+	.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px;max-width:680px}
+	.stat strong{font-size:clamp(1.4rem,2.6vw,1.75rem)}
+}
+@media(max-width:900px){
+	.hero-stats{gap:18px 20px;margin-top:28px;}
+	.dest-flag-bar{justify-content:flex-start;padding:0 4px}
+	.home-t-marquee{padding:36px 0 44px}
+	.home-t-marquee .section-header,.home-t-marquee .section-more{padding:0 16px}
+	.t-marquee-card{flex:0 0 min(78vw,300px)}
+}
+@media(max-width:640px){
+	.hero-stats{grid-template-columns:1fr;gap:14px;margin-top:28px;max-width:none;padding:18px 16px}
+	.stat strong{font-size:1.45rem}
+	.stat span{font-size:11px;letter-spacing:.05em}
+	.home-country-flag{margin-bottom:14px;}
+	.dest-flag-heading{width:100%;margin-bottom:6px}
+	.dest-flag-bar .country-button{min-height:40px}
+}
+@media(max-width:420px){
+	.stat strong{font-size:1.4rem}
+}

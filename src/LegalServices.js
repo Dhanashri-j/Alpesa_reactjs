@@ -1,5 +1,4 @@
 import React from 'react';
-import './LegalServices.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -11,153 +10,77 @@ function LegalServices() {
       <header className="hero">
         <div className="hero-inner">
           <span className="eyebrow">Legal Services</span>
-          <h1>Immigration counsel, <em>step by step</em>.</h1>
-          <p className="hero-lede">We offer immigration advisory for student visas and provide referrals to licensed immigration lawyers for visa applications and ongoing compliance.</p>
+          <h1>Expert immigration counsel, <em>from enrollment to employment</em>.</h1>
+          <p className="hero-lede">Alpesa partners with a leading immigration law firm so our students receive trusted legal guidance through every stage of their U.S. journey.</p>
         </div>
       </header>
 
-      <section className="section">
-        <div className="section-header">
-          <div className="section-label">Our Expertise</div>
-          <h2 className="section-title">Immigration support <em>you can trust</em>.</h2>
-          <p className="section-intro">We partner with licensed immigration lawyers across 8+ countries to provide legal guidance on student visas, compliance, and special circumstances.</p>
+      <section className="section legal-partner-section">
+        <div className="legal-partner-container">
+          <div className="legal-partner-left" data-reveal="left">
+            <div className="section-label">Our Legal Partner</div>
+            <h2 className="partner-title">Gehi & Associates, <em>Attorneys at Law</em>.</h2>
+            <p>Gehi & Associates, Attorneys at Law, an established full-service law firm based in three locations in New York, USA, as well as in Bombay, India, will serve as AES's legal services partner to counsel and assist students applying for their F-1 visa to pursue their higher education in the U.S.</p>
+            <p>Gehi is a comprehensive global law firm with a multi-state, multi-national, and multi-cultural staff who will provide personalized services to meet the needs of each international student — from enrollment to Curricular Practical Training (CPT) or Optional Practical Training (OPT) and employment upon graduation.</p>
+            <p>Mr. Gehi, the founder of the firm, is an accomplished lawyer and has been the recipient of many major awards in Immigration Law. He is the author of the book "Immigration for Everyone." He is a member of the American Immigration Law Association, and he is currently serving on the Federal Committee of the American Immigration Association.</p>
+          </div>
+
+          <div className="legal-partner-right" data-reveal="right">
+            <h3 className="partner-help-title">How our legal partner helps</h3>
+            <ul className="partner-helps-list">
+              <li>Counsel and assistance with the F-1 student visa application</li>
+              <li>Personalized, multi-faceted support for international students</li>
+              <li>Guidance from enrollment through OPT / CPT</li>
+              <li>Employment upon graduation immigration guidance</li>
+              <li>Offices in New York, USA and Bombay, India</li>
+            </ul>
+          </div>
         </div>
 
-        <div className="grid grid-2">
-          <div className="card">
-            <span className="ico">📜</span>
-            <h3>Student Visa Guidance</h3>
-            <p>Expert advisory on student visa requirements, documentation standards, and application strategies for 8+ countries.</p>
+        <div className="legal-contact" data-reveal>
+          <img
+            src="/gehi.png"
+            alt="Mr. Gehi, founder of Gehi & Associates"
+            className="legal-contact-photo"
+            width="168"
+            height="168"
+            decoding="async"
+          />
+          <div className="legal-contact-details">
+            <div className="section-label">Contact Details</div>
+            <h3>Gehi &amp; Associates</h3>
             <ul>
-              <li>Visa category selection &amp; eligibility assessment</li>
-              <li>Documentation standards &amp; checklist customization</li>
-              <li>Financial documentation preparation</li>
-              <li>Interview coaching &amp; mock sessions</li>
+              <li>
+                <span className="legal-contact-label">Phone</span>
+                <a href="tel:+17182635999">+1 (718)263-5999</a>
+              </li>
+              <li>
+                <span className="legal-contact-label">Email</span>
+                <a href="mailto:info@gehilaw.com">info@gehilaw.com</a>
+              </li>
+              <li>
+                <span className="legal-contact-label">Office</span>
+                <a href="https://maps.google.com/?q=74-09+37th+Avenue,+Suite+205,+Jackson+Heights,+NY+11372" target="_blank" rel="noopener noreferrer">
+                  74-09 37th Avenue, Suite 205<br />
+                  Jackson Heights, NY 11372
+                </a>
+              </li>
             </ul>
           </div>
+        </div>
 
-          <div className="card">
-            <span className="ico">⚖️</span>
-            <h3>Legal Referral Network</h3>
-            <p>Referrals to licensed immigration lawyers in your destination country for visa applications and ongoing legal advice.</p>
-            <ul>
-              <li>Partner lawyers in USA, UK, Canada, Australia</li>
-              <li>Referrals for visa appeals &amp; special cases</li>
-              <li>Compliance guidance during your studies</li>
-              <li>Post-graduation visa planning</li>
-            </ul>
-          </div>
-
-          <div className="card">
-            <span className="ico">🛡️</span>
-            <h3>Compliance Support</h3>
-            <p>Ongoing guidance to ensure you maintain legal status throughout your study abroad program.</p>
-            <ul>
-              <li>Work permit &amp; employment guidance</li>
-              <li>Course change &amp; transfer protocols</li>
-              <li>Extension &amp; renewal procedures</li>
-              <li>Off-campus housing &amp; living requirements</li>
-            </ul>
-          </div>
-
-          <div className="card">
-            <span className="ico">🆘</span>
-            <h3>Special Circumstances</h3>
-            <p>Specialized advisory for complex cases — rejections, appeals, visa delays, and unique personal situations.</p>
-            <ul>
-              <li>Visa rejection analysis &amp; appeal strategy</li>
-              <li>Medical &amp; health-related accommodations</li>
-              <li>Family visa sponsorship guidance</li>
-              <li>PR &amp; post-study pathway planning</li>
-            </ul>
-          </div>
+        <div className="legal-disclaimer" data-reveal>
+          <div className="disclaimer-label">Please Note</div>
+          <p>Alpesa Education Services is an educational consultancy and is not a law firm. Legal counsel is provided by our independent legal services partner. Immigration matters are handled directly by the law firm in accordance with applicable laws and professional rules.</p>
         </div>
       </section>
 
-      <section className="band-navy">
-        <div className="section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-          <div className="section-header center">
-            <div className="section-label">Our Commitment</div>
-            <h2 className="section-title">Licensed counsel, <em>ethical advice</em>.</h2>
-            <p className="section-intro">All legal services are provided through licensed immigration lawyers. Alpesa does not provide legal representation — we provide guidance and referrals within the bounds of what we can offer as educational consultants.</p>
-          </div>
-
-          <div className="steps" style={{ maxWidth: '900px', margin: '50px auto 0' }}>
-            <div className="step">
-              <div className="step-num">1</div>
-              <div>
-                <h5>Initial Visa Assessment</h5>
-                <p>We evaluate your profile against destination country visa requirements — identifying gaps, documentation needs, and potential challenges.</p>
-              </div>
-            </div>
-
-            <div className="step">
-              <div className="step-num">2</div>
-              <div>
-                <h5>Documentation Preparation</h5>
-                <p>We help you prepare and organize all required documents — ensuring they meet current standards and strengthening your application.</p>
-              </div>
-            </div>
-
-            <div className="step">
-              <div className="step-num">3</div>
-              <div>
-                <h5>Legal Referral (if needed)</h5>
-                <p>For complex cases or legal representation, we refer you to licensed immigration lawyers in your destination country.</p>
-              </div>
-            </div>
-
-            <div className="step">
-              <div className="step-num">4</div>
-              <div>
-                <h5>Ongoing Compliance Support</h5>
-                <p>Once you arrive, we provide guidance on maintaining legal status, work permits, and post-graduation visa options.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-header center">
-          <h2 className="section-title">Frequently asked <em>questions</em>.</h2>
-        </div>
-
-        <div className="faq-list">
-          <details className="faq">
-            <summary>Do I need a lawyer for my student visa?</summary>
-            <div className="ans">Most straightforward student visa applications don't require a lawyer. Our guidance is typically sufficient. However, if you have a rejection, criminal record, health issues, or other special circumstances, a licensed immigration lawyer is highly recommended.</div>
-          </details>
-
-          <details className="faq">
-            <summary>What if my visa is rejected?</summary>
-            <div className="ans">We'll analyze the rejection reason, help you understand what went wrong, and develop an appeal or reapplication strategy. For complex cases, we'll refer you to a licensed immigration lawyer.</div>
-          </details>
-
-          <details className="faq">
-            <summary>Can I work part-time while studying?</summary>
-            <div className="ans">Work eligibility varies by country and visa type. We provide country-specific guidance on part-time work, on-campus employment, and internship opportunities. Always check with your destination country's requirements.</div>
-          </details>
-
-          <details className="faq">
-            <summary>What are my options after graduation?</summary>
-            <div className="ans">Most destinations offer post-study work visas, pathways to PR, or other options. We provide guidance on your eligibility and next steps — and can refer you to a lawyer for formal PR applications.</div>
-          </details>
-
-          <details className="faq">
-            <summary>How do I maintain my visa status?</summary>
-            <div className="ans">Key compliance areas include: full-time enrollment, minimum grades, accommodation registration, work-hour limits, and departure/extension protocols. We provide a compliance checklist and ongoing support to keep you on track.</div>
-          </details>
-        </div>
-      </section>
-
-      <section className="section cta">
+      <section className="cta" data-reveal>
         <div className="cta-inner">
-          <h2>Have questions about your visa or immigration status?</h2>
-          <p>Get expert guidance from our team. We're here to help.</p>
+          <h2>Have a visa or immigration <em>question</em>?</h2>
+          <p>Speak with our team and we'll connect you with the right legal guidance for your situation.</p>
           <div className="cta-buttons">
-            <a href="#contact" className="btn btn-primary">Book a Consultation</a>
-            <a href="#services" className="btn btn-secondary">Learn More Services</a>
+            <a href="#contact" className="btn btn-primary">Get In Touch →</a>
           </div>
         </div>
       </section>

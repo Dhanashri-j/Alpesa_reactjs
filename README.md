@@ -68,3 +68,32 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+--
+
+## Styling, Flags and Project Notes (Alpesa customizations)
+
+- **Single source of truth for styles:** Shared layout, typography, buttons, header/footer, and flag utility classes live in `src/styles/common.css`. Page-specific CSS should only contain overrides or unique component styles.
+- **Removed empty per-page CSS files:** `About.css`, `Services.css`, `Testimonials.css`, and `LegalServices.css` were consolidated into `common.css` and deleted to avoid duplication.
+- **How to add page-specific styles:** Create a small CSS file (for example `MyPage.css`) and import it in the page component only when needed. Prefer class names scoped to the page (e.g., `.mypage-hero`) to avoid global collisions.
+
+### Flags
+
+- Flag images are stored in `public/flags/` as SVGs. The code will attempt to load `<key>.svg` and fall back to `<key>.png` if the SVG is missing or fails to load. Use short filenames (e.g., `ie.svg` for Ireland) — `StudyDestinations` already maps logical country keys to filenames when necessary.
+
+### Project structure suggestions (small, SEO-friendly React app)
+
+- Keep routing simple and use hash-based navigation (current approach) or a lightweight router like `react-router` for cleaner URLs and SEO-friendly server-side rendering or prerendering if required.
+- Folder layout recommendation:
+	- `src/components/` — reusable UI components (Header, Footer, Modal, Flag, Card)
+	- `src/pages/` — page-level components (Home, Services, Contact, StudyDestinations)
+	- `src/styles/` — `common.css` and any page/component-specific CSS
+	- `public/flags/` — SVG/PNG flags
+
+### SEO and performance tips
+
+- Add meta tags (title, description, og:*) per page. For SPAs, consider prerendering or SSR if SEO is critical.
+- Keep images optimized (SVG preferred for flags). Use compressed PNGs for fallback only when necessary.
+- Move sensitive keys (EmailJS service/template IDs) to environment variables before public deployment.
+
+If you'd like, I can now (A) delete any remaining small per-page CSS files you confirm, (B) migrate `Header.css` and `Footer.css` fully into `common.css`, or (C) refactor folder structure (`src/components` / `src/pages`) and move files accordingly. Which should I do next?

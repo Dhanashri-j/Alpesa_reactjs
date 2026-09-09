@@ -1,9 +1,124 @@
-import React from 'react';
-import './Services.css';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import FlagPanel from './FlagPanel';
+import { flagSrc as flagUrl } from './flagSrc';
 
 function Services() {
+  const [activeTab, setActiveTab] = useState('student');
+  const [financeTab, setFinanceTab] = useState('scholarships');
+
+  const tabs = {
+    student: {
+      label: 'Student Services',
+      intro: 'Senior stage of specialized support — application to counselling, funding, visas, departures, and on-campus success. Everything you need, under one roof.',
+      steps: [
+        {
+          num: '01',
+          title: 'Counselling & Planning',
+          text: 'One-on-one expert counselling to align your academic goals, budget, destination, and intake timeline with the most suitable course and university choices.',
+          bullets: ['Course and university shortlisting', 'Career-fit guidance', 'Budget planning and timeline mapping']
+        },
+        {
+          num: '02',
+          title: 'Test Preparation',
+          text: 'Support for IELTS, TOEFL, PTE, Duolingo, GRE, GMAT, SAT, and targeted exam readiness aligned to your application cycle.',
+          bullets: ['Score strategy and retake planning', 'Official prep resources', 'Trusted coaching referrals']
+        },
+        {
+          num: '03',
+          title: 'Admissions & Applications',
+          text: 'End-to-end application support to build strong profiles with SOPs, essays, CVs, LORs, and submission management across universities.',
+          bullets: ['SOP and essay review', 'LOR and transcript guidance', 'Offer and acceptance tracking']
+        },
+        {
+          num: '04',
+          title: 'Financial Assistance & Visa Support',
+          text: 'Identify merit, need-based, and country-specific funding opportunities, and get clear visa guidance with documentation support.',
+          hasTabs: true,
+          tabContent: {
+            scholarships: {
+              label: 'Scholarships',
+              bullets: ['Scholarship mapping', 'Financial document strategy', 'Funding checklist support']
+            },
+            loans: {
+              label: 'Educational Loans',
+              bullets: ['Loan evaluation & comparison', 'Application guidance', 'Eligibility assessment assistance']
+            }
+          }
+        },
+        {
+          num: '05',
+          title: 'Visa Assistance',
+          text: 'Expert visa counseling and complete documentation support to ensure you meet all eligibility requirements and confidently handle the interview.',
+          bullets: ['Visa-filing process guidance', 'Document checklists & templates', 'Financial proof guidelines', 'Mock visa interviews']
+        },
+        {
+          num: '06',
+          title: 'Pre-Departure Guidance',
+          text: 'From travel logistics to accommodation and banking setup, we help you prepare for arrival and life abroad without confusion.',
+          bullets: ['Travel and accommodation planning', 'SIM and banking setup', 'Arrival and orientation planning']
+        },
+        {
+          num: '07',
+          title: 'Travel Assistance',
+          text: 'Complete travel coordination and support from visa approval until you safely land on campus — so you can focus on your new journey.',
+          bullets: ['Flight & visa tracking', 'Travel compliance & requirements', 'Luggage & documentation audit']
+        },
+        {
+          num: '08',
+          title: 'Pre & Post Departure Orientation',
+          text: 'An end-to-end orientation to help you settle into your new city, make informed decisions, and stay connected to our community of fellow alumni.',
+          bullets: ['Campus welcome & campus support', 'Community & social groups', 'Internship & job placement']
+        }
+      ]
+    },
+    university: {
+      label: 'University Services',
+      intro: 'Partner institutions build strong student pipelines in India through recruitment, admissions, and long-term student lifecycle engagement.',
+      cards: [
+        {
+          icon: '🏢',
+          title: 'Vacancies Campaigns',
+          text: 'Targeted outreach campaigns to fill student pipelines from India with qualified high-potential applicants across intakes and programs.',
+          bullets: []
+        },
+        {
+          icon: '🎓',
+          title: 'Tours',
+          text: 'Virtual and in-campus tours for Indian students and families — bringing your campus closer and building genuine interest.',
+          bullets: []
+        },
+        {
+          icon: '🎤',
+          title: 'Seminars',
+          text: 'Expert webinars and in-person seminars on admissions, scholarships, visas, and student life to reach and engage your target audience.',
+          bullets: []
+        },
+        {
+          icon: '👥',
+          title: 'Faculty Opportunity',
+          text: 'Build academic partnerships and faculty exchange programs to strengthen your institution\'s presence and reputation in India.',
+          bullets: []
+        },
+        {
+          icon: '💼',
+          title: 'Recruitment Pipelines',
+          text: 'Strategic pipeline building through Alpesa ambassadors, local partners, and education fairs to expand your India student network.',
+          bullets: []
+        },
+        {
+          icon: '✈️',
+          title: 'Study Abroad Programs',
+          text: 'Inbound and outbound exchange opportunities with Indian institutes to build student mobility and academic collaboration.',
+          bullets: []
+        }
+      ]
+    }
+  };
+
+  const currentTab = tabs[activeTab];
+
   return (
     <>
       <Header activePage="services" />
@@ -12,175 +127,110 @@ function Services() {
         <div className="hero-inner">
           <span className="eyebrow">Our Services</span>
           <h1>Complete support, from <em>application to arrival</em>.</h1>
-          <p className="hero-lede">We guide you through every stage of your study-abroad journey — counselling, test prep, admissions, funding, visas, departure, and on-campus university support. Everything you need, under one roof.</p>
-          <div className="hero-cta">
-            <button type="button" className="btn btn-primary">Student Services</button>
-            <button type="button" className="btn btn-secondary">University Services</button>
+          <p className="hero-lede">We guide students and institutions through every stage of the international education journey — from counselling and admissions to visas, funding, arrival, and long-term student success.</p>
+          <div className="hero-cta service-tabs" role="tablist" aria-label="Service tabs">
+            <button type="button" className={`btn ${activeTab === 'student' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveTab('student')} role="tab" aria-selected={activeTab === 'student'}>Student Services</button>
+            <button type="button" className={`btn ${activeTab === 'university' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveTab('university')} role="tab" aria-selected={activeTab === 'university'}>University Services</button>
           </div>
         </div>
       </header>
 
-      <section className="section">
-        <div className="section-header">
-          <div className="section-label">Student Services</div>
+      <section className="section service-section">
+        <FlagPanel src={activeTab === 'student' ? flagUrl('usa') : flagUrl('uk')} className="service-flag-box">
+        <div className="section-header" data-reveal>
+          <div className="section-label">{currentTab.label}</div>
           <h2 className="section-title">Your journey, <em>step by step</em>.</h2>
-          <p className="section-intro">Seven stages of personalised support — each handled by experts who know exactly what admissions committees and visa officers look for.</p>
+          <p className="section-intro">{currentTab.intro}</p>
         </div>
 
-        <div className="steps" style={{ maxWidth: 'none' }}>
-          <div className="step">
-            <div className="step-num">1</div>
-            <div>
-              <h5>Counselling &amp; Planning</h5>
-              <p>A free, in-depth profile evaluation to map your strengths, budget, and goals — then a tailored country, course, and intake plan.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> One-on-one career &amp; course counselling</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Country &amp; university shortlisting matched to your profile</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Intake selection &amp; a clear application timeline</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Budget &amp; ROI planning across destinations</li>
-              </ul>
-            </div>
+        {activeTab === 'student' ? (
+          <div className="steps reveal-stagger">
+            {currentTab.steps.map((step) => (
+              <div className="card-3d step" key={step.num}>
+                <div className="step-num">{step.num}</div>
+                <div>
+                  <h5>{step.title}</h5>
+                  <p>{step.text}</p>
+                  {step.hasTabs ? (
+                    <div className="finance-tabs">
+                      <div className="finance-tab-buttons">
+                        <button 
+                          type="button"
+                          className={`finance-tab-btn ${financeTab === 'scholarships' ? 'active' : ''}`}
+                          onClick={() => setFinanceTab('scholarships')}
+                        >
+                          {step.tabContent.scholarships.label}
+                        </button>
+                        <button 
+                          type="button"
+                          className={`finance-tab-btn ${financeTab === 'loans' ? 'active' : ''}`}
+                          onClick={() => setFinanceTab('loans')}
+                        >
+                          {step.tabContent.loans.label}
+                        </button>
+                      </div>
+                      <ul className="tab-content">
+                        {step.tabContent[financeTab].bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <ul>
+                      {step.bullets.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-
-          <div className="step">
-            <div className="step-num">2</div>
-            <div>
-              <h5>Test Preparation</h5>
-              <p>We connect you with the best coaching and resources for every required exam, and plan your test calendar around application deadlines.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> English tests: IELTS, TOEFL, PTE, Duolingo</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Aptitude tests: GRE, GMAT, SAT</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Referrals to trusted coaching centres &amp; official prep portals</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Score-targeting &amp; retake strategy</li>
-              </ul>
-            </div>
+        ) : (
+          <div className="service-grid reveal-stagger">
+            {currentTab.cards.map((card) => (
+              <article className="service-card-univ card-3d" key={card.title}>
+                <div className="service-icon-univ">{card.icon}</div>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </article>
+            ))}
           </div>
-
-          <div className="step">
-            <div className="step-num">3</div>
-            <div>
-              <h5>Admissions &amp; Application</h5>
-              <p>End-to-end application management — we build the strongest possible file for each university and track it through to your offer.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> SOP &amp; essay guidance, LOR coordination</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Resume/CV building &amp; transcript preparation</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Application submission across multiple universities</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Offer-letter management &amp; admission acceptance</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="step">
-            <div className="step-num">4</div>
-            <div>
-              <h5>Financial Assistance &amp; Scholarships</h5>
-              <p>We help you fund your education and prepare a watertight financial file — the backbone of a successful visa application.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Matching to merit, need-based &amp; country-specific awards</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Assistantship &amp; fellowship guidance</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Application &amp; essay support for scholarships</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="step">
-            <div className="step-num">5</div>
-            <div>
-              <h5>Student Visa Application</h5>
-              <p>Dedicated visa counselling and documentation support to ensure your application is visa-officer approved.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Visa requirements &amp; documentation checklist</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Financial proof &amp; bank statements</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Interview coaching &amp; mock sessions</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="step">
-            <div className="step-num">6</div>
-            <div>
-              <h5>Pre-Departure Support</h5>
-              <p>Get ready for your new life — accommodation, travel, banking, and settling-in guidance.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Accommodation guidance &amp; housing resources</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Flight booking &amp; travel planning</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Local banking, SIM card, and settling-in checklist</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="step">
-            <div className="step-num">7</div>
-            <div>
-              <h5>On-Campus Support &amp; Alumni Network</h5>
-              <p>Your journey doesn't end when you arrive — we're here to help you thrive on campus and build lasting connections.</p>
-              <ul style={{ listStyle: 'none', padding: '0', margin: '10px 0 0' }}>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Academic &amp; career guidance at university</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Internship &amp; job placement support</li>
-                <li style={{ padding: '5px 0 5px 20px', position: 'relative', fontSize: '14px', color: 'var(--ink-soft)' }}><span style={{ position: 'absolute', left: '0', color: 'var(--saffron)' }}>→</span> Alumni network &amp; mentorship programs</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        )}
+        </FlagPanel>
       </section>
 
       <section className="band-navy">
-        <div className="section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-          <div className="section-header center">
-            <div className="section-label">University Services</div>
-            <h2 className="section-title">Partnerships that <em>matter</em>.</h2>
-            <p className="section-intro">We work with universities globally to build recruitment pipelines, manage student onboarding, and support their India strategy.</p>
+        <div className="section">
+          <div className="section-header center" data-reveal>
+            <div className="section-label">Why choose us</div>
+            <h2 className="section-title">Trusted support from <em>start to finish</em>.</h2>
+            <p className="section-intro">We combine strategic counselling, visa preparation, funding guidance, and ongoing support so students and partners can move forward with confidence.</p>
           </div>
 
-          <div className="grid grid-2" style={{ marginTop: '50px' }}>
-            <div className="card">
-              <span className="ico">🎓</span>
-              <h3>Recruitment &amp; Outreach</h3>
-              <p>Targeted student recruitment, campus events, webinars, and fair participation to build your enrollment pipeline from India.</p>
-              <ul>
-                <li>Education fair participation &amp; sponsorship</li>
-                <li>Campus ambassador programs</li>
-                <li>Student recruitment funnels &amp; campaigns</li>
-              </ul>
+          <div className="grid grid-3 reveal-stagger">
+            <div className="card card-3d">
+              <span className="ico">✅</span>
+              <h3>Clear guidance</h3>
+              <p>Practical and honest advice tailored to your profile, destination, and academic goals.</p>
             </div>
 
-            <div className="card">
-              <span className="ico">📋</span>
-              <h3>Admissions Support</h3>
-              <p>Application volume generation, student quality assurance, and admissions counselling — delivered at scale.</p>
-              <ul>
-                <li>High-volume application generation</li>
-                <li>Student profile evaluation &amp; matching</li>
-                <li>Admissions process optimization</li>
-              </ul>
+            <div className="card card-3d">
+              <span className="ico">🤝</span>
+              <h3>Personal attention</h3>
+              <p>We keep the process simple, responsive, and student-focused from the first call onward.</p>
             </div>
 
-            <div className="card">
-              <span className="ico">🎯</span>
-              <h3>Student Lifecycle Management</h3>
-              <p>From onboarding to graduation, we support your students through every milestone — and we report back to you.</p>
-              <ul>
-                <li>New student onboarding &amp; orientation</li>
-                <li>Retention &amp; academic support coordination</li>
-                <li>Career services &amp; alumni engagement</li>
-              </ul>
-            </div>
-
-            <div className="card">
-              <span className="ico">🌐</span>
-              <h3>Strategic India Partnerships</h3>
-              <p>Long-term collaboration models — from student pipelines to joint research, university partnerships that drive mutual growth.</p>
-              <ul>
-                <li>Dedicated account management</li>
-                <li>Joint marketing initiatives &amp; branding</li>
-                <li>Research collaborations &amp; faculty exchanges</li>
-              </ul>
+            <div className="card card-3d">
+              <span className="ico">📍</span>
+              <h3>Full journey support</h3>
+              <p>From course selection to arrival, we help students settle in and make informed decisions.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section cta">
+      <section className="section cta" data-reveal>
         <div className="cta-inner">
           <h2>Ready to transform your study-abroad goals?</h2>
           <p>Book a free consultation with one of our expert counsellors today.</p>

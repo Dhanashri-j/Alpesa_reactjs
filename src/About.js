@@ -1,5 +1,4 @@
 import React from 'react';
-import './About.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -17,14 +16,14 @@ function About() {
       </header>
 
       <section className="section">
-        <div className="grid grid-2" style={{ alignItems: 'start', gap: '50px' }}>
-          <div>
+        <div className="grid grid-2 about-mission">
+          <div data-reveal="left">
             <div className="section-label">Our Mission</div>
             <h2 className="section-title">Education without <em>borders</em>.</h2>
             <p style={{ color: 'var(--ink-soft)', lineHeight: '1.8', marginBottom: '18px' }}>We believe a student's potential should never be limited by geography. Our mission is to make world-class education accessible to Indian students by demystifying the application and visa process and standing beside families at every step.</p>
             <p style={{ color: 'var(--ink-soft)', lineHeight: '1.8' }}>From a focus on US universities, we have grown to support 12 study destinations across North America, Europe, Asia, and Oceania — always with current, accurate guidance and a student-first approach.</p>
           </div>
-          <div className="card" style={{ background: 'var(--cream)' }}>
+          <div className="card" data-reveal="right" style={{ background: 'var(--cream)' }}>
             <h3>Why families choose Alpesa</h3>
             <ul>
               <li>Personalised, one-on-one counselling — never a call centre</li>
@@ -38,13 +37,24 @@ function About() {
         </div>
       </section>
 
+      <section className="section" id="global">
+        <div className="section-header" data-reveal>
+          <div className="section-label">Global</div>
+          <h2 className="section-title">Our Global <em>Network</em></h2>
+        </div>
+        <div className="card about-global" data-reveal>
+          <p>Alpesa Education Services (AES) is part of Global Education Services Inc. (GESI), our parent company headquartered in Nashville, Tennessee, USA. Founded in 2022, GESI works directly with partner universities across the United States to place international students in the right programs. Together, the two offices give students support on both sides of the journey — from the first counselling session in India through admission, visa, and arrival on campus in the US.</p>
+          <p>Having a US-based parent company means our students are not left on their own once they land. GESI maintains direct working relationships with its partner universities and their international student offices, so questions about admissions, I-20s, program transfers, or academic standing can be raised through people who already know the institution. For families in India, it also means the advice you receive in Pune is grounded in what is actually happening on US campuses right now.</p>
+        </div>
+      </section>
+
       <section className="band-navy">
         <div className="section">
-          <div className="section-header">
+          <div className="section-header" data-reveal>
             <div className="section-label">What We Stand For</div>
             <h2 className="section-title">Our <em>values</em>.</h2>
           </div>
-          <div className="grid grid-3">
+          <div className="grid grid-3 reveal-stagger">
             <div className="card"><span className="ico">🤝</span><h3>Integrity</h3><p>We give honest advice — even when it means recommending a different country, course, or timeline than you expected.</p></div>
             <div className="card"><span className="ico">🎯</span><h3>Expertise</h3><p>We track policy and visa changes continuously so your application reflects the latest, accurate requirements.</p></div>
             <div className="card"><span className="ico">❤️</span><h3>Care</h3><p>Every student is treated like family. We are available, responsive, and invested in your success abroad.</p></div>
@@ -52,7 +62,7 @@ function About() {
         </div>
       </section>
 
-      <section className="cta">
+      <section className="cta" data-reveal>
         <div className="cta-inner">
           <h2>Let's plan your <em>journey</em> together.</h2>
           <p>Meet our counsellors and get a personalised roadmap for your study-abroad goals.</p>

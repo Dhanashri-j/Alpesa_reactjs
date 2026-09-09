@@ -1,0 +1,219 @@
+/* Desktop hover menus — sit flush under the tab, nested panel flies right */
+
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.has-submenu > .submenu {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 220px;
+  margin: 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(10, 37, 64, .12);
+  z-index: 90;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+
+.has-submenu > .submenu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  height: 12px;
+}
+
+.has-submenu .submenu a,
+.has-submenu .submenu .submenu-parent {
+  appearance: none;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 550;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: background .14s ease, color .14s ease;
+}
+
+.has-submenu .submenu a::after {
+  display: none;
+}
+
+.has-submenu .submenu a:hover,
+.has-submenu .submenu .submenu-parent:hover,
+.has-submenu .submenu a:focus-visible,
+.has-submenu .submenu .submenu-parent:focus-visible {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+.submenu-item {
+  position: relative;
+}
+
+.has-submenu:hover > .submenu,
+.has-submenu.open > .submenu {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.submenu-nested {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 4px);
+  min-width: 200px;
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(10, 37, 64, .12);
+  z-index: 91;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+
+.submenu-nested::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+}
+
+.submenu-item:hover > .submenu-nested,
+.submenu-item.open > .submenu-nested {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.chevron {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: .75em;
+  line-height: 1;
+  opacity: .7;
+  transition: transform .16s ease;
+}
+
+.has-submenu.open > button .chevron,
+.has-submenu:hover > button .chevron {
+  transform: rotate(180deg);
+}
+
+.nested-chevron {
+  margin-left: 8px;
+  transform: none;
+  transition: transform .16s ease;
+}
+
+.submenu-item:hover .nested-chevron,
+.submenu-item.open .nested-chevron {
+  transform: translateX(2px);
+}
+
+.nav-links a:focus-visible,
+.nav-links button:focus-visible {
+  outline: 2px solid var(--saffron);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-submenu > .submenu,
+  .submenu-nested,
+  .chevron,
+  .nested-chevron,
+  .has-submenu .submenu a,
+  .has-submenu .submenu .submenu-parent {
+    transition: none;
+  }
+}
+
+@media (max-width: 1280px) {
+  .has-submenu > .submenu,
+  .has-submenu:hover > .submenu,
+  .has-submenu.open > .submenu,
+  .submenu-nested {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    box-shadow: none;
+    border: 0;
+    background: transparent;
+    padding: 4px 0 6px 10px;
+    min-width: 0;
+    border-radius: 0;
+    gap: 0;
+  }
+
+  .has-submenu > .submenu,
+  .submenu-item > .submenu-nested,
+  .has-submenu:hover > .submenu,
+  .submenu-item:hover > .submenu-nested {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+
+  .has-submenu.open > .submenu,
+  .submenu-item.open > .submenu-nested {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    display: flex;
+  }
+
+  .submenu-nested {
+    padding-left: 12px;
+  }
+
+  .nested-chevron {
+    transform: rotate(90deg);
+  }
+
+  .submenu-item.open .nested-chevron {
+    transform: rotate(-90deg);
+  }
+}

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import './StudyDestinations.css';
+import './styles/StudyDestinations.css';
 import Header from './Header';
 import Footer from './Footer';
+import FlagPanel from './FlagPanel';
+import { flagSrc as flagUrl } from './flagSrc';
+import { STUDY_DESTINATION_NAV } from './siteData';
 
 function StudyDestinations() {
   const [selectedCountry, setSelectedCountry] = useState('usa');
@@ -17,7 +20,7 @@ function StudyDestinations() {
       topUniversities: ['Harvard University', 'Stanford University', 'MIT', 'Yale University', 'Princeton University', 'University of Chicago', 'Penn University', 'Columbia University']
     },
     uk: {
-      name: 'United Kingdom',
+      name: 'UK',
       flag: '🇬🇧',
       info: 'Historic universities, specialized programs, and a compact study timeline. Graduate in 1 year with quality education and global recognition.',
       tuition: '$15,000 - $40,000 per year',
@@ -60,6 +63,60 @@ function StudyDestinations() {
       duration: '3 years (Bachelor\'s), 2 years (Master\'s)',
       opportunities: ['Work permit (964 hours/year)', 'Living allowance & scholarships', 'Internship opportunities', 'European career network'],
       topUniversities: ['Sorbonne University', 'PSL Research University', 'University of Lyon', 'Grenoble INP', 'ESSEC', 'HEC Paris', 'Ecole Polytechnique', 'Sciences Po']
+    },
+    ireland: {
+      name: 'Ireland',
+      flag: '🇮🇪',
+      info: 'English-speaking gateway to Europe and global tech.',
+      tuition: '€10,000 - €25,000 per year',
+      duration: '3 years (Bachelor\'s), 1 year (Master\'s)',
+      opportunities: ['Graduate Route (up to 24 months)', 'Scholarships', 'Strong tech hiring'],
+      topUniversities: ['Trinity College Dublin', 'University College Dublin', 'University of Galway', 'University College Cork']
+    },
+    taiwan: {
+      name: 'Taiwan',
+      flag: '🇹🇼',
+      info: 'Affordable East-Asian study hub with strong tech industry links.',
+      tuition: '$3,000 - $8,000 per year',
+      duration: 'Varies by program',
+      opportunities: ['Taiwan Scholarship (MOE)', 'Industry internships', 'Mandarin study options'],
+      topUniversities: ['National Taiwan University', 'National Tsing Hua University', 'National Cheng Kung University']
+    },
+    italy: {
+      name: 'Italy',
+      flag: '🇮🇹',
+      info: 'Design, fashion, and affordable public universities.',
+      tuition: '€1,000 - €6,000 per year (public)',
+      duration: '3 years (Bachelor\'s), 2 years (Master\'s)',
+      opportunities: ['Design & creative industries', 'Regional grants', 'Schengen mobility'],
+      topUniversities: ['Politecnico di Milano', 'Sapienza University of Rome', 'University of Bologna', 'Bocconi University']
+    },
+    japan: {
+      name: 'Japan',
+      flag: '🇯🇵',
+      info: 'Cutting-edge tech, robotics, and strong government scholarships.',
+      tuition: '¥535k–900k/yr',
+      duration: 'Varies by program',
+      opportunities: ['MEXT scholarships', 'Industry R&D roles', 'Expanding English programs'],
+      topUniversities: ['University of Tokyo', 'Kyoto University', 'Osaka University']
+    },
+    newzealand: {
+      name: 'New Zealand',
+      flag: '🇳🇿',
+      info: 'Safe, scenic campuses and high quality of life.',
+      tuition: 'NZD 20k–40k/yr',
+      duration: '3 years (Bachelor\'s), 1-2 years (Master\'s)',
+      opportunities: ['Post-study work visas', 'Strong scholarship schemes'],
+      topUniversities: ['University of Auckland', 'University of Otago', 'Victoria University of Wellington']
+    },
+    netherlands: {
+      name: 'Netherlands',
+      flag: '🇳🇱',
+      info: 'Large selection of English-taught programs in the heart of Europe.',
+      tuition: '€8k–20k/yr',
+      duration: '3 years (Bachelor\'s), 1-2 years (Master\'s)',
+      opportunities: ['Orientation Year (zoekjaar)', 'English widely spoken', 'Innovation economy'],
+      topUniversities: ['Delft University of Technology', 'University of Amsterdam', 'Eindhoven University of Technology']
     }
   };
 
@@ -78,81 +135,83 @@ function StudyDestinations() {
       </header>
 
       <div className="country-nav">
-        <div className="country-nav-inner">
-          {Object.keys(destinations).map(key => (
+        <div className="country-nav-inner" role="tablist" aria-label="Study destinations">
+          <span className="dest-flag-heading">Study Destinations:</span>
+          {STUDY_DESTINATION_NAV.filter((item) => destinations[item.key]).map((item) => (
             <button
-              key={key}
+              key={item.key}
               type="button"
-              onClick={() => setSelectedCountry(key)}
-              style={{
-                border: 'none',
-                background: 'transparent',
-                padding: 0,
-                cursor: 'pointer',
-                backgroundColor: selectedCountry === key ? 'var(--navy)' : '',
-                color: selectedCountry === key ? '#fff' : ''
-              }}
+              id={`tab-${item.key}`}
+              role="tab"
+              aria-selected={selectedCountry === item.key}
+              aria-controls={`panel-${item.key}`}
+              className={`country-button ${selectedCountry === item.key ? 'selected' : ''}`}
+              onMouseEnter={() => setSelectedCountry(item.key)}
+              onFocus={() => setSelectedCountry(item.key)}
+              onClick={() => setSelectedCountry(item.key)}
             >
-              {destinations[key].flag} {destinations[key].name}
+              <img
+                src={flagUrl(item.key)}
+                alt=""
+                aria-hidden="true"
+                className="flag-img flag-img-sm"
+              />
+              <span className="name">{item.name}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <section className="section">
-        <div className="country-detail">
-          <div className="country-head">
-            <div className="country-flag">{current.flag}</div>
-            <div>
-              <h2>{current.name}</h2>
-              <p>{current.info}</p>
+      <section className="section dest-section">
+        <article className="dest-country tab-panel" key={selectedCountry} id={`panel-${selectedCountry}`} role="tabpanel" aria-labelledby={`tab-${selectedCountry}`}>
+          <FlagPanel src={flagUrl(selectedCountry)} band className="dest-country-bar">
+            <div className="dest-country-bar-inner">
+              <img src={flagUrl(selectedCountry)} alt={`${current.name} flag`} className="flag-img flag-img-lg" />
+              <div>
+                <p className="dest-kicker">Study destination</p>
+                <h2>{current.name}</h2>
+              </div>
+            </div>
+          </FlagPanel>
+
+          <div className="country-detail" data-reveal>
+            <p className="dest-summary">{current.info}</p>
+
+            <div className="meta-grid dest-stats">
+              <div className="card-3d meta-card">
+                <span className="meta-label">Typical costs</span>
+                <strong>{current.tuition}</strong>
+                <p>Plus living expenses of $10,000-$20,000/year depending on city</p>
+              </div>
+              <div className="card-3d meta-card">
+                <span className="meta-label">Study duration</span>
+                <strong>{current.duration}</strong>
+                <p>Varies by program and institution</p>
+              </div>
+            </div>
+
+            <div className="dest-block">
+              <div className="dest-block-label">Post-study opportunities</div>
+              <div className="chip-row">
+                {current.opportunities.map((opp, idx) => (
+                  <span className="chip" key={idx}>{opp}</span>
+                ))}
+              </div>
             </div>
           </div>
-
-          <div className="grid grid-2" style={{ marginTop: '40px' }}>
-            <div className="card">
-              <h3>💰 Typical Costs</h3>
-              <p style={{ fontSize: '1.3rem', fontWeight: '600', color: 'var(--navy)', marginTop: '10px' }}>{current.tuition}</p>
-              <p style={{ marginTop: '8px', fontSize: '13px', color: 'var(--ink-soft)' }}>Plus living expenses of $10,000-$20,000/year depending on city</p>
-            </div>
-
-            <div className="card">
-              <h3>📚 Study Duration</h3>
-              <p style={{ fontSize: '1.3rem', fontWeight: '600', color: 'var(--navy)', marginTop: '10px' }}>{current.duration}</p>
-              <p style={{ marginTop: '8px', fontSize: '13px', color: 'var(--ink-soft)' }}>Varies by program and institution</p>
-            </div>
-          </div>
-
-          <div className="highlight" style={{ marginTop: '40px' }}>
-            <div className="label">🎯 Post-Study Opportunities</div>
-            <ul style={{ marginLeft: '20px' }}>
-              {current.opportunities.map((opp, idx) => (
-                <li key={idx}>{opp}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div style={{ marginTop: '50px' }}>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '20px' }}>Top Universities</h3>
-            <ul className="uni-list">
-              {current.topUniversities.map((uni, idx) => (
-                <li key={idx}>{uni}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        </article>
       </section>
 
       <section className="band-navy">
-        <div className="section" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-          <div className="section-header center">
+        <div className="section">
+          <div className="section-header center" data-reveal>
             <div className="section-label">Our Support</div>
             <h2 className="section-title">We help you <em>succeed</em> abroad.</h2>
             <p className="section-intro">From pre-arrival preparations to on-campus success, we support you throughout your journey.</p>
           </div>
 
-          <div className="grid grid-3" style={{ marginTop: '50px' }}>
-            <div className="card">
+          <div className="grid grid-3 reveal-stagger">
+            <div className="card card-3d">
               <span className="ico">📋</span>
               <h3>Pre-Arrival</h3>
               <p>Accommodation search, city guides, budget planning, and local SIM card setup.</p>
@@ -174,11 +233,11 @@ function StudyDestinations() {
       </section>
 
       <section className="section">
-        <div className="section-header center">
+        <div className="section-header center" data-reveal>
           <h2 className="section-title">Frequently asked <em>questions</em>.</h2>
         </div>
 
-        <div className="faq-list">
+        <div className="faq-list reveal-stagger">
           <details className="faq">
             <summary>Which country is best for Indian students?</summary>
             <div className="ans">There's no single "best" — it depends on your goals, budget, and field of study. USA offers the most universities and career opportunities. UK is great for rapid master's programs. Canada has excellent post-graduation work visas and PR pathways. Australia offers quality education with lower costs. Germany has minimal tuition fees. We help you evaluate all options.</div>
@@ -206,7 +265,7 @@ function StudyDestinations() {
         </div>
       </section>
 
-      <section className="section cta">
+      <section className="section cta" data-reveal>
         <div className="cta-inner">
           <h2>Ready to explore your perfect destination?</h2>
           <p>Let's craft a study-abroad plan tailored to your goals and budget.</p>

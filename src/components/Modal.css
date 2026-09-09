@@ -1,0 +1,10 @@
+.modal-overlay{position:fixed;inset:0;background:rgba(10,20,30,.45);display:flex;align-items:center;justify-content:center;z-index:200}
+.modal{background:var(--paper);border-radius:12px;max-width:720px;width:100%;padding:18px;box-shadow:0 20px 60px rgba(10,37,64,.12)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.modal .modal-body{padding:6px 0}
+.modal .modal-actions{display:flex;justify-content:flex-end;margin-top:12px}
+.modal.info .modal-header h3{color:var(--navy)}
+.modal.error .modal-header h3{color:#b91c1c}
+.modal.success .modal-header h3{color:#15803d}
+.modal-close{background:none;border:0;font-size:1.2rem;cursor:pointer}
+.btn{background:var(--navy);color:#fff;padding:8px 14px;border-radius:8px;border:0;cursor:pointer}
