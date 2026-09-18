@@ -17,8 +17,8 @@ function pageFromHash() {
   const hash = (typeof window !== 'undefined' ? window.location.hash.slice(1) : '') || '/';
   if (hash === '/' || hash === '') return 'home';
   if (hash === 'about' || hash === 'global') return 'about';
-  if (hash === 'contact') return 'contact';
-  if (hash === 'services') return 'services';
+  if (hash === 'contact' || hash === 'contact-university') return 'contact';
+  if (hash === 'services' || hash === 'services-university' || hash.startsWith('service-')) return 'services';
   if (hash === 'legal-services') return 'legal-services';
   if (hash === 'partners') return 'partners';
   if (hash === 'study-destinations') return 'study-destinations';
@@ -62,7 +62,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const id = window.setTimeout(scrollToHash, 0);
+    const id = window.setTimeout(scrollToHash, 60);
     return () => window.clearTimeout(id);
   }, [currentPage, routeHash]);
 

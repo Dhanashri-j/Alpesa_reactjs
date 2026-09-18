@@ -14,7 +14,9 @@ const HOME_VISAS = {
   ireland: { name: 'Ireland', text: 'Student: Study visa with a graduate route of up to 24 months. Visitor: short-stay visa for eligible travellers.' },
   australia: { name: 'Australia', text: 'Student: Subclass 500 with CoE, GTE and OSHC. Visitor: visitor visa for tourism and family visits.' },
   canada: { name: 'Canada', text: 'Student: Study Permit tied to your course, with a strong post-graduation work permit. Visitor: visitor visa.' },
-  newzealand: { name: 'New Zealand', text: 'Student: Student visa with part-time work rights. Visitor: visitor visa for tourism and family visits.' }
+  newzealand: { name: 'New Zealand', text: 'Student: Student visa with part-time work rights. Visitor: visitor visa for tourism and family visits.' },
+  france: { name: 'France', text: 'Student: VLS-TS long-stay study visa via Campus France / France-Visas. Visitor: short-stay Schengen Visa.' },
+  taiwan: { name: 'Taiwan', text: 'Student: Resident visa for study, then an ARC. Visitor: visitor visa for tourism and family visits.' }
 };
 
 function Home() {
@@ -36,7 +38,7 @@ function Home() {
           <div className="hero-stats">
             <div className="stat"><strong>12</strong><span>STUDY DESTINATIONS</span></div>
             <div className="stat"><strong>500+</strong><span>PARTNER UNIVERSITIES</span></div>
-            <div className="stat"><strong>India ↔<wbr /> World</strong><span>END-TO-END SUPPORT</span></div>
+            <div className="stat"><strong>India ↔ World</strong><span>END-TO-END SUPPORT</span></div>
             <div className="stat"><strong>Free</strong><span>EXPERT COUNSELLING</span></div>
           </div>
         </div>
@@ -53,19 +55,19 @@ function Home() {
             <span className="ico">🎓</span>
             <h3>University Admissions</h3>
             <p>Shortlisting, applications, SOPs, LORs, and offer management across 500+ partner universities worldwide.</p>
-            <a href="#services" className="lk">Student services →</a>
+            <a href="#service-admissions" className="lk">Student services →</a>
           </div>
           <div className="card">
             <span className="ico">📝</span>
             <h3>SOP &amp; Test Prep</h3>
             <p>Statement-of-purpose writing guidance plus IELTS / TOEFL / GRE / GMAT planning and resources.</p>
-            <a href="#services" className="lk">Learn more →</a>
+            <a href="#service-tests" className="lk">Learn more →</a>
           </div>
           <div className="card">
             <span className="ico">💰</span>
             <h3>Scholarships &amp; Funding</h3>
             <p>We match you to country-specific scholarships and guide education-loan and financial-proof documentation.</p>
-            <a href="#services" className="lk">How we help →</a>
+            <a href="#service-funding" className="lk">How we help →</a>
           </div>
           <div className="card">
             <span className="ico">🌍</span>
@@ -83,7 +85,7 @@ function Home() {
             <span className="ico">✈️</span>
             <h3>Pre-Departure</h3>
             <p>Forex, accommodation, travel, and arrival briefings so your first weeks abroad go smoothly.</p>
-            <a href="#services" className="lk">Learn more →</a>
+            <a href="#service-predeparture" className="lk">Learn more →</a>
           </div>
         </div>
       </section>
@@ -118,6 +120,7 @@ function Home() {
           <div className="grid grid-3 reveal-stagger">
             {VISA_NAV.map((item) => {
               const visa = HOME_VISAS[item.key];
+              if (!visa) return null;
               return (
                 <FlagPanel src={flagUrl(item.key)} className="card card-3d home-visa-card" key={item.key}>
                   <img src={flagUrl(item.key)} alt={`${visa.name} flag`} className="flag-img flag-img-lg home-country-flag" />

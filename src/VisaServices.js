@@ -147,6 +147,46 @@ function VisaServices() {
         'English-taught programs don\'t typically require German proficiency',
         'Very affordable — minimal visa costs and tuition'
       ]
+    },
+    france: {
+      flagFile: 'france',
+      name: 'France',
+      title: 'France Student Visa (VLS-TS)',
+      route: 'VLS-TS',
+      summary: 'Long-stay student visa through Campus France and France-Visas, plus a short-stay Schengen option for visits.',
+      duration: 'Course duration (renewable in France)',
+      processing: '2–4 weeks',
+      cost: '€50–€99',
+      visaTypes: ['VLS-TS student visa', 'Short-stay Schengen Visa'],
+      documents: ['Campus France / France-Visas file', 'Admission letter', 'Proof of funds', 'Passport'],
+      workPermit: 'Up to 964 hours per year alongside studies',
+      renewal: 'Residence permit renewal in France; job-seeker options after eligible degrees',
+      tips: [
+        'Complete Campus France steps before the visa appointment',
+        'Show funds that cover tuition and living costs in France',
+        'Validate the VLS-TS after you arrive',
+        'Keep fee receipts and housing proof with your file'
+      ]
+    },
+    taiwan: {
+      flagFile: 'taiwan',
+      name: 'Taiwan',
+      title: 'Taiwan Resident Visa for Study',
+      route: 'Resident visa (study)',
+      summary: 'A resident visa for study, converted to an ARC after arrival, plus a visitor visa for short family or tourist trips.',
+      duration: 'Course duration',
+      processing: '2–4 weeks',
+      cost: 'About TWD 3,000+',
+      visaTypes: ['Resident visa for study', 'Visitor visa'],
+      documents: ['Admission letter', 'Passport', 'Financial proof', 'Health check if required'],
+      workPermit: 'Part-time work may be allowed with a separate work permit',
+      renewal: 'ARC renewal while enrolled; post-study work options for eligible graduates',
+      tips: [
+        'Apply with a confirmed offer before you book travel',
+        'Convert the resident visa to an ARC after you land',
+        'Budget for living costs in Taipei or your campus city',
+        'Keep academic and financial papers together for immigration'
+      ]
     }
   };
 

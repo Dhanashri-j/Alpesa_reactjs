@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import './styles/Header.css';
 import HoursBlock from './HoursBlock';
 import { VISA_NAV, PHONE_PRIMARY, PHONE_SECONDARY } from './siteData';
@@ -113,6 +113,21 @@ function Header({ activePage }) {
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen);
     return () => document.body.classList.remove('nav-open');
+  }, [menuOpen]);
+
+  useLayoutEffect(() => {
+    const syncNavPanelTop = () => {
+      const header = document.querySelector('.site-header');
+      const top = header ? Math.round(header.getBoundingClientRect().bottom) : 0;
+      document.documentElement.style.setProperty('--nav-panel-top', `${top}px`);
+    };
+    syncNavPanelTop();
+    window.addEventListener('resize', syncNavPanelTop);
+    window.addEventListener('scroll', syncNavPanelTop, { passive: true });
+    return () => {
+      window.removeEventListener('resize', syncNavPanelTop);
+      window.removeEventListener('scroll', syncNavPanelTop);
+    };
   }, [menuOpen]);
 
   const getMenuItems = (submenu) => {

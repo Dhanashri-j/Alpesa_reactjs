@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/Contact.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -11,15 +11,37 @@ const EMAIL_TO = 'info@alpesaeducationservices.com';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const NAME_RE = /^[A-Za-z][A-Za-z .'-]{1,79}$/;
 
-const emptyForm = {
+const STUDENT_INTEREST = 'Study abroad — undergraduate';
+const UNI_INTEREST = 'University partnership — recruitment';
+
+const emptyStudentForm = {
+  enquiryType: 'student',
   fullName: '',
+  institution: '',
   email: '',
   phone: '',
-  interested: 'Study abroad — undergraduate',
+  interested: STUDENT_INTEREST,
   destination: 'Not sure yet — advise me',
   message: '',
   company: ''
 };
+
+const emptyUniversityForm = {
+  enquiryType: 'university',
+  fullName: '',
+  institution: '',
+  email: '',
+  phone: '',
+  interested: UNI_INTEREST,
+  destination: 'Not sure yet — advise me',
+  message: '',
+  company: ''
+};
+
+function formFromHash() {
+  const hash = (typeof window !== 'undefined' ? window.location.hash.slice(1) : '') || '';
+  return hash === 'contact-university' ? emptyUniversityForm : emptyStudentForm;
+}
 
 function digitCount(value) {
   return (value || '').replace(/\D/g, '').length;
@@ -27,9 +49,16 @@ function digitCount(value) {
 
 function validate(formData) {
   const errors = {};
+  const isUniversity = formData.enquiryType === 'university';
   const name = formData.fullName.trim();
-  if (!name) errors.fullName = 'Please enter your full name.';
+  if (!name) errors.fullName = isUniversity ? 'Please enter a contact name.' : 'Please enter your full name.';
   else if (!NAME_RE.test(name)) errors.fullName = 'Use letters, spaces, hyphens, or apostrophes (at least 2 characters).';
+
+  if (isUniversity) {
+    const institution = (formData.institution || '').trim();
+    if (!institution) errors.institution = 'Please enter your university or institution name.';
+    else if (institution.length < 2) errors.institution = 'Please enter a valid institution name.';
+  }
 
   const email = formData.email.trim();
   if (!email) errors.email = 'Please enter your email address.';
@@ -39,11 +68,11 @@ function validate(formData) {
   if (!phone) errors.phone = 'Please enter a WhatsApp / mobile number.';
   else if (digitCount(phone) < 10 || digitCount(phone) > 15) errors.phone = 'Enter a valid phone number with 10–15 digits.';
 
-  if (!formData.interested) errors.interested = 'Please choose what you are interested in.';
-  if (!formData.destination) errors.destination = 'Please choose a preferred destination.';
+  if (!formData.interested) errors.interested = isUniversity ? 'Please choose a partnership interest.' : 'Please choose what you are interested in.';
+  if (!isUniversity && !formData.destination) errors.destination = 'Please choose a preferred destination.';
 
   const message = formData.message.trim();
-  if (!message) errors.message = 'Please tell us a little about your goals.';
+  if (!message) errors.message = isUniversity ? 'Please tell us about the partnership you have in mind.' : 'Please tell us a little about your goals.';
   else if (message.length < 12) errors.message = 'Please add a short message (at least 12 characters).';
 
   return errors;
@@ -59,9 +88,13 @@ async function sendEnquiry(formData) {
     email: formData.email.trim(),
     phone: formData.phone.trim(),
     interested: formData.interested,
-    destination: formData.destination,
+    destination: formData.enquiryType === 'university' ? (formData.institution || '').trim() : formData.destination,
+    institution: (formData.institution || '').trim(),
+    enquiry_type: formData.enquiryType === 'university' ? 'University partnership' : 'Student enquiry',
     message: formData.message.trim(),
-    _subject: `Alpesa enquiry — ${formData.fullName.trim()}`,
+    _subject: formData.enquiryType === 'university'
+      ? `Alpesa university partnership — ${formData.fullName.trim()}`
+      : `Alpesa enquiry — ${formData.fullName.trim()}`,
     _template: 'table',
     _captcha: 'false',
     _replyto: formData.email.trim()
@@ -84,10 +117,22 @@ async function sendEnquiry(formData) {
 }
 
 function Contact() {
-  const [formData, setFormData] = useState(emptyForm);
+  const [formData, setFormData] = useState(formFromHash);
   const [errors, setErrors] = useState({});
   const [modal, setModal] = useState({ open: false, title: '', body: null, variant: 'info' });
   const [sending, setSending] = useState(false);
+  const isUniversity = formData.enquiryType === 'university';
+
+  useEffect(() => {
+    const applyHash = () => {
+      const next = formFromHash();
+      setFormData(next);
+      setErrors({});
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -132,12 +177,12 @@ function Contact() {
         body: <div>Thank you for your enquiry — we will contact you shortly at {formData.email.trim()}.</div>,
         variant: 'success'
       });
-      setFormData(emptyForm);
+      setFormData(isUniversity ? emptyUniversityForm : emptyStudentForm);
       setErrors({});
     } catch (error) {
       const subject = encodeURIComponent(`Alpesa enquiry — ${formData.fullName.trim()}`);
       const body = encodeURIComponent(
-        `Name: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nInterested in: ${formData.interested}\nDestination: ${formData.destination}\n\n${formData.message}`
+        `Name: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nType: ${formData.enquiryType}\nInstitution: ${formData.institution || '—'}\nInterested in: ${formData.interested}\nDestination: ${formData.destination}\n\n${formData.message}`
       );
       setModal({
         open: true,
@@ -164,24 +209,24 @@ function Contact() {
 
       <header className="hero">
         <div className="hero-inner">
-          <span className="eyebrow">Contact</span>
-          <h1>Let's start your <em>study-abroad journey</em>.</h1>
-          <p className="hero-lede">Book a free consultation or send us a message. Our counsellors typically respond within one business day.</p>
+          <span className="eyebrow">{isUniversity ? 'University partners' : 'Contact'}</span>
+          <h1>{isUniversity ? <>Let's build a <em>student pipeline</em> together.</> : <>Let's start your <em>study-abroad journey</em>.</>}</h1>
+          <p className="hero-lede">{isUniversity ? 'Tell us about your institution and the partnership you have in mind. Our team typically responds within one business day.' : 'Book a free consultation or send us a message. Our counsellors typically respond within one business day.'}</p>
         </div>
       </header>
 
       <section className="section">
         <div className="contact-grid">
           <div className="contact-panel" data-reveal="left">
-            <div className="section-label">Send a Message</div>
-            <h2 className="section-title" style={{ fontSize: '1.8rem' }}>Request a <em>free consultation</em></h2>
+            <div className="section-label">{isUniversity ? 'Partner with AES' : 'Send a Message'}</div>
+            <h2 className="section-title" style={{ fontSize: '1.8rem' }}>{isUniversity ? <>Request a <em>university partnership</em></> : <>Request a <em>free consultation</em></>}</h2>
             <form onSubmit={handleSubmit} noValidate>
               <div className="hp-field" aria-hidden="true">
                 <label htmlFor="company">Company</label>
                 <input id="company" type="text" name="company" value={formData.company} onChange={handleChange} tabIndex={-1} autoComplete="off" />
               </div>
               <div className="field">
-                <label htmlFor="fullName">Full name</label>
+                <label htmlFor="fullName">{isUniversity ? 'Contact name' : 'Full name'}</label>
                 <input
                   id="fullName"
                   type="text"
@@ -195,6 +240,23 @@ function Contact() {
                 />
                 {errors.fullName && <p className="field-error">{errors.fullName}</p>}
               </div>
+              {isUniversity ? (
+              <div className="field">
+                <label htmlFor="institution">University / institution</label>
+                <input
+                  id="institution"
+                  type="text"
+                  name="institution"
+                  placeholder="Official institution name"
+                  value={formData.institution}
+                  onChange={handleChange}
+                  className={fieldClass('institution')}
+                  aria-invalid={Boolean(errors.institution)}
+                  autoComplete="organization"
+                />
+                {errors.institution && <p className="field-error">{errors.institution}</p>}
+              </div>
+              ) : null}
               <div className="field">
                 <label htmlFor="email">Email</label>
                 <input
@@ -226,7 +288,7 @@ function Contact() {
                 {errors.phone && <p className="field-error">{errors.phone}</p>}
               </div>
               <div className="field">
-                <label htmlFor="interested">Interested in</label>
+                <label htmlFor="interested">{isUniversity ? 'Partnership interest' : 'Interested in'}</label>
                 <select
                   id="interested"
                   name="interested"
@@ -234,14 +296,28 @@ function Contact() {
                   onChange={handleChange}
                   className={fieldClass('interested')}
                 >
-                  <option>Study abroad — undergraduate</option>
-                  <option>Study abroad — postgraduate / master's</option>
-                  <option>PhD / research</option>
-                  <option>Student visa guidance</option>
-                  <option>Tourist / visitor visa</option>
-                  <option>Other</option>
+                  {isUniversity ? (
+                    <>
+                      <option>University partnership — recruitment</option>
+                      <option>Campus tours</option>
+                      <option>Seminars &amp; webinars</option>
+                      <option>Faculty collaboration</option>
+                      <option>Study abroad / exchange</option>
+                      <option>Other partnership</option>
+                    </>
+                  ) : (
+                    <>
+                      <option>Study abroad — undergraduate</option>
+                      <option>Study abroad — postgraduate / master's</option>
+                      <option>PhD / research</option>
+                      <option>Student visa guidance</option>
+                      <option>Tourist / visitor visa</option>
+                      <option>Other</option>
+                    </>
+                  )}
                 </select>
               </div>
+              {isUniversity ? null : (
               <div className="field">
                 <label htmlFor="destination">Preferred destination</label>
                 <select
@@ -266,12 +342,13 @@ function Contact() {
                   <option>Netherlands</option>
                 </select>
               </div>
+              )}
               <div className="field">
                 <label htmlFor="message">Message</label>
                 <textarea
                   id="message"
                   name="message"
-                  placeholder="Tell us about your goals, current education, and intended intake..."
+                  placeholder={isUniversity ? 'Tell us about programmes, intakes, and how you would like to work with AES...' : 'Tell us about your goals, current education, and intended intake...'}
                   value={formData.message}
                   onChange={handleChange}
                   className={fieldClass('message')}

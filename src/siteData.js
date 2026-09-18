@@ -10,7 +10,9 @@ export const VISA_NAV = [
   { key: 'ireland', label: 'Ireland' },
   { key: 'australia', label: 'Australia' },
   { key: 'canada', label: 'Canada' },
-  { key: 'newzealand', label: 'New Zealand' }
+  { key: 'newzealand', label: 'New Zealand' },
+  { key: 'france', label: 'France' },
+  { key: 'taiwan', label: 'Taiwan' }
 ];
 
 export const STUDY_DESTINATION_NAV = [

@@ -10,16 +10,16 @@
 .hero-stats{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:20px 28px;
+  gap:16px 20px;
   margin-top:40px;
-  max-width:960px;
+  max-width:none;
   width:100%;
   position:relative;
   z-index:2;
   background:rgba(10,37,64,.94);
   border:1px solid rgba(255,255,255,.14);
   border-radius:18px;
-  padding:22px 24px 20px;
+  padding:20px 22px 18px;
   box-sizing:border-box;
   -webkit-backdrop-filter:blur(10px);
   backdrop-filter:blur(10px);
@@ -28,12 +28,12 @@
 .stat strong{
   display:block;
   font-family:var(--display);
-  font-size:clamp(1.35rem,2.2vw,2rem);
+  font-size:clamp(1.15rem,1.55vw,1.7rem);
   font-weight:600;
   color:var(--saffron-bright);
   margin-bottom:6px;
-  line-height:1.15;
-  overflow-wrap:break-word;
+  line-height:1.2;
+  white-space:nowrap;
   text-shadow:0 2px 14px rgba(10,37,64,.55);
 }
 .stat span{
@@ -45,7 +45,7 @@
   line-height:1.4;
   text-shadow:0 1px 10px rgba(10,37,64,.6);
 }
-.home-country-flag{display:block;width:56px;height:36px;margin-bottom:18px;border-radius:6px;box-shadow:0 8px 16px rgba(10,37,64,.2)}
+.home-country-flag{display:block;width:56px;height:36px;max-width:none;margin-bottom:18px;border-radius:6px;box-shadow:0 8px 16px rgba(10,37,64,.2)}
 .home-visa-card .flag-watermark{opacity:.14;width:58%;height:80%}
 .home-t-marquee{padding:48px 0 56px;overflow:hidden;background:#fff;border-top:1px solid var(--line)}
 .home-t-marquee .section-header{padding:0 24px}
@@ -53,6 +53,8 @@
 .dest-flag-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;max-width:1100px;margin:0 auto}
 .dest-flag-bar .dest-flag-heading{font-weight:700;color:var(--navy);font-size:15.5px;margin-right:4px}
 .dest-flag-bar .country-button{text-decoration:none;color:inherit}
+.dest-flag-bar .country-button .flag-img,
+.dest-flag-bar .flag-img-sm{width:28px;height:18px;max-width:none;flex-shrink:0}
 .t-marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .t-marquee-track{display:flex;gap:18px;width:max-content;padding:8px 24px 4px;animation:tMarquee 42s linear infinite}
 .t-marquee:hover .t-marquee-track{animation-play-state:paused}
@@ -72,24 +74,24 @@
 			var(--hero-photo);
 		background-position:center;
 	}
-	.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px;max-width:680px}
-	.stat strong{font-size:clamp(1.4rem,2.6vw,1.75rem)}
 }
 @media(max-width:900px){
-	.hero-stats{gap:18px 20px;margin-top:28px;}
-	.dest-flag-bar{justify-content:flex-start;padding:0 4px}
+	.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px;margin-top:28px;}
+	.stat strong{font-size:clamp(1.25rem,3vw,1.55rem);white-space:nowrap}
+	.dest-flag-bar{justify-content:flex-start;padding:0 4px;flex-wrap:wrap}
 	.home-t-marquee{padding:36px 0 44px}
 	.home-t-marquee .section-header,.home-t-marquee .section-more{padding:0 16px}
 	.t-marquee-card{flex:0 0 min(78vw,300px)}
 }
 @media(max-width:640px){
-	.hero-stats{grid-template-columns:1fr;gap:14px;margin-top:28px;max-width:none;padding:18px 16px}
-	.stat strong{font-size:1.45rem}
-	.stat span{font-size:11px;letter-spacing:.05em}
+	.hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;margin-top:28px;max-width:none;padding:16px 14px}
+	.stat strong{font-size:1.15rem;white-space:nowrap}
+	.stat span{font-size:10px;letter-spacing:.04em}
 	.home-country-flag{margin-bottom:14px;}
 	.dest-flag-heading{width:100%;margin-bottom:6px}
 	.dest-flag-bar .country-button{min-height:40px}
 }
 @media(max-width:420px){
-	.stat strong{font-size:1.4rem}
+	.hero-stats{grid-template-columns:1fr;gap:12px}
+	.stat strong{font-size:1.35rem}
 }

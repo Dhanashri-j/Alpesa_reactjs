@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import FlagPanel from './FlagPanel';
@@ -33,8 +33,8 @@ function Services() {
         },
         {
           num: '04',
-          title: 'Financial Assistance & Visa Support',
-          text: 'Identify merit, need-based, and country-specific funding opportunities, and get clear visa guidance with documentation support.',
+          title: 'Financial Assistance',
+          text: 'Identify merit, need-based, and country-specific funding opportunities, with document strategy for scholarships and education loans.',
           hasTabs: true,
           tabContent: {
             scholarships: {
@@ -118,6 +118,27 @@ function Services() {
   };
 
   const currentTab = tabs[activeTab];
+  const stepAnchors = {
+    '01': 'service-counselling',
+    '02': 'service-tests',
+    '03': 'service-admissions',
+    '04': 'service-funding',
+    '05': 'service-visa',
+    '06': 'service-predeparture',
+    '07': 'service-travel',
+    '08': 'service-orientation'
+  };
+
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = (window.location.hash || '').replace(/^#/, '');
+      if (hash === 'services-university') setActiveTab('university');
+      else if (hash.startsWith('service-')) setActiveTab('student');
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
 
   return (
     <>
@@ -135,7 +156,7 @@ function Services() {
         </div>
       </header>
 
-      <section className="section service-section">
+      <section className="section service-section" id="services-university">
         <FlagPanel src={activeTab === 'student' ? flagUrl('usa') : flagUrl('uk')} className="service-flag-box">
         <div className="section-header" data-reveal>
           <div className="section-label">{currentTab.label}</div>
@@ -146,7 +167,7 @@ function Services() {
         {activeTab === 'student' ? (
           <div className="steps reveal-stagger">
             {currentTab.steps.map((step) => (
-              <div className="card-3d step" key={step.num}>
+              <div className="card-3d step" key={step.num} id={stepAnchors[step.num]}>
                 <div className="step-num">{step.num}</div>
                 <div>
                   <h5>{step.title}</h5>
@@ -236,7 +257,7 @@ function Services() {
           <p>Book a free consultation with one of our expert counsellors today.</p>
           <div className="cta-buttons">
             <a href="#contact" className="btn btn-primary">Start Your Journey</a>
-            <a href="#contact" className="btn btn-secondary">Request University Partnership</a>
+            <a href="#contact-university" className="btn btn-secondary">Request University Partnership</a>
           </div>
         </div>
       </section>
