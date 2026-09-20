@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import './styles/Header.css';
-import HoursBlock from './HoursBlock';
-import { VISA_NAV, PHONE_PRIMARY, PHONE_SECONDARY } from './siteData';
+import { VISA_NAV } from './siteData';
 
 export { VISA_NAV };
 

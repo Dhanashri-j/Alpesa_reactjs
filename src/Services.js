@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import FlagPanel from './FlagPanel';
-import { flagSrc as flagUrl } from './flagSrc';
 
 function Services() {
   const [activeTab, setActiveTab] = useState('student');
