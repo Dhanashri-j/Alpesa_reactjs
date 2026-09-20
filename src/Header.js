@@ -264,7 +264,7 @@ function Header({ activePage }) {
 
   return (
     <>
-      <div className="topbar">
+      {/* <div className="topbar">
         <div className="topbar-inner">
           <span>📞 <a href={PHONE_PRIMARY.href}>{PHONE_PRIMARY.display}</a> &nbsp;|&nbsp; <a href={PHONE_SECONDARY.href}>{PHONE_SECONDARY.display}</a></span>
           <span className="topbar-hours" aria-label="Office hours">
@@ -272,7 +272,7 @@ function Header({ activePage }) {
           </span>
           <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Admissions Open, Apply now</span>
         </div>
-      </div>
+      </div> */}
 
       <header className="site-header">
         <nav className="nav-inner" role="navigation" aria-label="Main">

@@ -151,12 +151,12 @@ function Header({ activePage }) {
 
   return (
     <>
-      <div className="topbar">
+      {/* <div className="topbar">
         <div className="topbar-inner">
           <span>📞 <a href="tel:+918989550909">+91 89895 50909</a> &nbsp;|&nbsp; <a href="tel:+918984616204">+91 89846 16204</a></span>
           <span>✉️ <a href="mailto:info@alpesaeducationservices.com">info@alpesaeducationservices.com</a> &nbsp;|&nbsp; 🌟 Admissions Open, Apply now</span>
         </div>
-      </div>
+      </div> */}
 
       <header className="site-header">
         <nav className="nav-inner" role="navigation" aria-label="Main">

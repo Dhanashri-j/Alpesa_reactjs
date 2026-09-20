@@ -11,18 +11,19 @@ function Footer() {
           <a href="#/" className="brand footer-brand">
             <img
               src="/aes-logo.png"
-              width="280"
+              width="176"
               height="110"
+              style={{ backgroundColor: 'white', padding: '5px',width: '176px' }}
               alt="Alpesa Education Services"
               className="brand-logo footer-logo"
-              loading="lazy"
               decoding="async"
+              fetchPriority="high"
             />
           </a>
           <p className="footer-blurb">Your trusted partner for global higher education — expert guidance on university admissions, scholarships, and student &amp; tourist visas, from application to arrival.</p>
-          <div className="footer-flags" aria-hidden="true">
+          <div className="footer-flags" aria-hidden="true" style={{ width: '220px' }}>
             {STUDY_DESTINATION_NAV.map((flag) => (
-              <img key={flag.name} src={flagUrl(flag.key)} alt="" title={flag.name} width="28" height="18" loading="lazy" decoding="async" />
+              <img key={flag.name} src={flagUrl(flag.key)} alt="" title={flag.name} width="28" height="18" loading="lazy" decoding="async" style={{ width: '28px', height: '18px' }}                                                      />
             ))}
           </div>
         </div>

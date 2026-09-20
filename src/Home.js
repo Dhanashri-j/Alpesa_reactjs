@@ -55,7 +55,7 @@ function Home() {
             <span className="ico">🎓</span>
             <h3>University Admissions</h3>
             <p>Shortlisting, applications, SOPs, LORs, and offer management across 500+ partner universities worldwide.</p>
-            <a href="#service-admissions" className="lk">Student services →</a>
+            <a href="#service-counselling" className="lk">Student services →</a>
           </div>
           <div className="card">
             <span className="ico">📝</span>

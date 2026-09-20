@@ -54,10 +54,10 @@ function Services() {
           bullets: ['Visa-filing process guidance', 'Document checklists & templates', 'Financial proof guidelines', 'Mock visa interviews']
         },
         {
-          num: '06',
-          title: 'Pre-Departure Guidance',
-          text: 'From travel logistics to accommodation and banking setup, we help you prepare for arrival and life abroad without confusion.',
-          bullets: ['Travel and accommodation planning', 'SIM and banking setup', 'Arrival and orientation planning']
+          num: '08',
+          title: 'Pre & Post Departure Orientation',
+          text: 'An end-to-end orientation to help you settle into your new city, make informed decisions, and stay connected to our community of fellow alumni.',
+          bullets: ['Campus welcome & campus support', 'Community & social groups', 'Internship & job placement']
         },
         {
           num: '07',
@@ -66,10 +66,10 @@ function Services() {
           bullets: ['Flight & visa tracking', 'Travel compliance & requirements', 'Luggage & documentation audit']
         },
         {
-          num: '08',
-          title: 'Pre & Post Departure Orientation',
-          text: 'An end-to-end orientation to help you settle into your new city, make informed decisions, and stay connected to our community of fellow alumni.',
-          bullets: ['Campus welcome & campus support', 'Community & social groups', 'Internship & job placement']
+          num: '06',
+          title: 'Pre-Departure Guidance',
+          text: 'From travel logistics to accommodation and banking setup, we help you prepare for arrival and life abroad without confusion.',
+          bullets: ['Travel and accommodation planning', 'SIM and banking setup', 'Arrival and orientation planning']
         }
       ]
     },
@@ -157,7 +157,7 @@ function Services() {
       </header>
 
       <section className="section service-section" id="services-university">
-        <FlagPanel src={activeTab === 'student' ? flagUrl('usa') : flagUrl('uk')} className="service-flag-box">
+        {/* <FlagPanel src={activeTab === 'student' ? flagUrl('usa') : flagUrl('uk')} className="service-flag-box"> */}
         <div className="section-header" data-reveal>
           <div className="section-label">{currentTab.label}</div>
           <h2 className="section-title">Your journey, <em>step by step</em>.</h2>
@@ -218,7 +218,7 @@ function Services() {
             ))}
           </div>
         )}
-        </FlagPanel>
+        {/* </FlagPanel> */}
       </section>
 
       <section className="band-navy">
