@@ -1,4 +1,4 @@
-export const OFFICE_ADDRESS = "304/305, D'Gold House, Dnyaneshwar Paduka Chowk, Ferguson College Rd, Shivajinagar, Pune, Maharashtra 411005, India";
+export const OFFICE_ADDRESS = "304/305, D'Gold House, Dnyaneshwar Paduka Chowk, FC Rd, Shivajinagar, Pune, Maharashtra 411005, India";
 
 export const PHONE_PRIMARY = { display: '+91 89895 50909', href: 'tel:+918989550909' };
 export const PHONE_SECONDARY = { display: '+91 89846 16204', href: 'tel:+918984616204' };

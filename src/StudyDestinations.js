@@ -5,6 +5,7 @@ import Footer from './Footer';
 import FlagPanel from './FlagPanel';
 import { flagSrc as flagUrl } from './flagSrc';
 import { STUDY_DESTINATION_NAV } from './siteData';
+import { STUDY_DESTINATIONS } from './studyDestinationData';
 
 function StudyDestinations() {
   const [selectedCountry, setSelectedCountry] = useState('usa');
@@ -117,7 +118,8 @@ function StudyDestinations() {
       duration: '3 years (Bachelor\'s), 1-2 years (Master\'s)',
       opportunities: ['Orientation Year (zoekjaar)', 'English widely spoken', 'Innovation economy'],
       topUniversities: ['Delft University of Technology', 'University of Amsterdam', 'Eindhoven University of Technology']
-    }
+    },
+    ...STUDY_DESTINATIONS
   };
 
   const current = destinations[selectedCountry];
@@ -128,9 +130,9 @@ function StudyDestinations() {
 
       <header className="hero">
         <div className="hero-inner">
-          <span className="eyebrow">Study Destinations</span>
-          <h1>Study abroad, <em>your way</em>.</h1>
-          <p className="hero-lede">Explore 6+ countries, compare programs, costs, and career outcomes. Find your perfect destination and build your global education strategy.</p>
+          <span className="eyebrow">Study Abroad</span>
+          <h1>Study <em>Destinations</em>.</h1>
+          <p className="hero-lede">Choosing where to study abroad is one of the most important decisions of your academic journey. Compare top destinations across universities, costs, scholarships, work rights, and post-study pathways - so you can choose what fits your goals.</p>
         </div>
       </header>
 
@@ -146,8 +148,6 @@ function StudyDestinations() {
               aria-selected={selectedCountry === item.key}
               aria-controls={`panel-${item.key}`}
               className={`country-button ${selectedCountry === item.key ? 'selected' : ''}`}
-              onMouseEnter={() => setSelectedCountry(item.key)}
-              onFocus={() => setSelectedCountry(item.key)}
               onClick={() => setSelectedCountry(item.key)}
             >
               <img
@@ -156,7 +156,7 @@ function StudyDestinations() {
                 aria-hidden="true"
                 className="flag-img flag-img-sm"
               />
-              <span className="name">{item.name}</span>
+              <span className="name">{destinations[item.key].name}</span>
             </button>
           ))}
         </div>
@@ -178,25 +178,49 @@ function StudyDestinations() {
             <p className="dest-summary">{current.info}</p>
 
             <div className="meta-grid dest-stats">
-              <div className="card-3d meta-card">
-                <span className="meta-label">Typical costs</span>
-                <strong>{current.tuition}</strong>
-                <p>Plus living expenses of $10,000-$20,000/year depending on city</p>
-              </div>
-              <div className="card-3d meta-card">
-                <span className="meta-label">Study duration</span>
-                <strong>{current.duration}</strong>
-                <p>Varies by program and institution</p>
-              </div>
+              {current.facts.map(([label, value]) => (
+                <div className="card-3d meta-card" key={label}>
+                  <span className="meta-label">{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              ))}
             </div>
 
             <div className="dest-block">
-              <div className="dest-block-label">Post-study opportunities</div>
-              <div className="chip-row">
-                {current.opportunities.map((opp, idx) => (
-                  <span className="chip" key={idx}>{opp}</span>
+              <div className="dest-block-label">Why study in {current.name}</div>
+              <div className="grid grid-2 dest-content-grid">
+                {current.why.map(([title, text]) => (
+                  <div className="card-3d dest-content-card" key={title}>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </div>
                 ))}
               </div>
+            </div>
+
+            <div className="dest-block dest-lower-grid">
+              <div>
+                <div className="dest-block-label">Top universities</div>
+                <ul className="uni-list">
+                  {current.universities.map((university) => <li key={university}>{university}</li>)}
+                </ul>
+              </div>
+              <div>
+                <div className="dest-block-label">Popular courses</div>
+                <div className="dest-course-list">
+                  {current.courses.map(([title, text]) => (
+                    <div className="card-3d dest-content-card" key={title}>
+                      <h3>{title}</h3>
+                      <p>{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="dest-note">
+              <div className="dest-block-label">Scholarships, intakes &amp; work rights</div>
+              <p>{current.note}</p>
             </div>
           </div>
         </article>

@@ -4,6 +4,8 @@
 .country-button{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);cursor:pointer;transition:transform .18s ease,background .18s ease,box-shadow .18s ease,color .18s ease}
 .country-button:hover{transform:translateY(-3px);background:rgba(10,37,64,0.03);box-shadow:0 6px 18px rgba(10,37,64,.06)}
 .country-button.selected{background:var(--navy);color:#fff;border-color:transparent}
+.country-button.selected:hover{transform:none;box-shadow:none}
+.country-button:focus-visible{outline:3px solid rgba(245,158,11,.65);outline-offset:2px}
 .country-button .name{font-weight:600;font-size:13.5px;white-space:nowrap}
 .country-button .flag-img,
 .country-button .flag-img-sm{width:28px;height:18px;max-width:none;flex-shrink:0;border-radius:4px;object-fit:cover}
@@ -19,8 +21,19 @@
 .country-detail{padding:28px 28px 32px;background:linear-gradient(180deg,#f7fafc 0%,#fff 48%);position:relative}
 .dest-summary{margin:0 0 24px;color:var(--ink-soft);font-size:15px;line-height:1.7;max-width:760px}
 .dest-stats{margin-top:0}
+.dest-stats .meta-card{min-height:104px}
+.dest-stats .meta-card strong{font-size:1rem;line-height:1.35}
 .dest-block{margin-top:32px}
 .dest-block-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--saffron);font-weight:700;margin-bottom:14px}
+.dest-content-grid{gap:16px}
+.dest-content-card{padding:20px}
+.dest-content-card h3{font-family:var(--display);font-size:1.1rem;color:var(--navy);margin:0 0 8px}
+.dest-content-card p{margin:0;color:var(--ink-soft);font-size:14px;line-height:1.6}
+.dest-lower-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start}
+.dest-course-list{display:grid;gap:12px}
+.dest-note{margin-top:32px;padding:22px 24px;background:rgba(217,119,6,.07);border-left:4px solid var(--saffron);border-radius:8px}
+.dest-note .dest-block-label{margin-bottom:8px}
+.dest-note p{margin:0;color:var(--ink);font-size:14px;line-height:1.7}
 .dest-uni-title{font-family:var(--display);font-size:1.45rem;font-weight:600;color:var(--navy);margin-bottom:18px}
 .uni-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;list-style:none;padding:0;margin:0}
 .uni-list li{padding:12px 14px 12px 34px;position:relative;font-size:14.5px;color:var(--navy);background:var(--paper);border:1px solid var(--line);border-radius:12px;line-height:1.45}
@@ -36,6 +49,7 @@
   .dest-flag-heading{flex:1 0 100%;position:static;background:transparent;padding-right:0;margin-bottom:2px}
   .country-button{flex:0 0 auto;min-height:40px}
   .uni-list{grid-template-columns:1fr}
+  .dest-lower-grid{grid-template-columns:1fr;gap:24px}
   .country-detail,.dest-country-bar-inner{padding:18px 16px}
   .dest-country-bar .flag-watermark{width:46%;opacity:.16}
 }
