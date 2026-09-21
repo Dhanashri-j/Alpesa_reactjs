@@ -53,27 +53,27 @@ function Home() {
         <div className="grid grid-3 reveal-stagger">
           <div className="card">
             <span className="ico">🎓</span>
-            <h3>University Admissions</h3>
-            <p>Shortlisting, applications, SOPs, LORs, and offer management across 500+ partner universities worldwide.</p>
+            <h3>Counselling &amp; Planning</h3>
+            <p>One-on-one expert counselling to align your academic goals, budget, destination, and intake timeline with the most suitable course and university choices.</p>
             <a href="#service-counselling" className="lk">Student services →</a>
           </div>
           <div className="card">
             <span className="ico">📝</span>
-            <h3>SOP &amp; Test Prep</h3>
-            <p>Statement-of-purpose writing guidance plus IELTS / TOEFL / GRE / GMAT planning and resources.</p>
+            <h3>Test Preparation</h3>
+            <p>Support for IELTS, TOEFL, PTE, Duolingo, GRE, GMAT, SAT, and targeted exam readiness aligned to your application cycle.</p>
             <a href="#service-tests" className="lk">Learn more →</a>
+          </div>
+          <div className="card">
+            <span className="ico">🎓</span>
+            <h3>University Admissions</h3>
+            <p>Shortlisting, applications, SOPs, LORs, and offer management across 500+ partner universities worldwide.</p>
+            <a href="#service-admissions" className="lk">Student services →</a>
           </div>
           <div className="card">
             <span className="ico">💰</span>
             <h3>Scholarships &amp; Funding</h3>
             <p>We match you to country-specific scholarships and guide education-loan and financial-proof documentation.</p>
             <a href="#service-funding" className="lk">How we help →</a>
-          </div>
-          <div className="card">
-            <span className="ico">🌍</span>
-            <h3>Study Destinations</h3>
-            <p>Compare 12 countries on cost, scholarships, work rights, and post-study pathways before you decide.</p>
-            <a href="#study-destinations" className="lk">Compare countries →</a>
           </div>
           <div className="card">
             <span className="ico">🛂</span>
@@ -83,8 +83,8 @@ function Home() {
           </div>
           <div className="card">
             <span className="ico">✈️</span>
-            <h3>Pre-Departure</h3>
-            <p>Forex, accommodation, travel, and arrival briefings so your first weeks abroad go smoothly.</p>
+            <h3>Pre &amp; Post Departure Orientation</h3>
+            <p>An end-to-end orientation to help you settle into your new city, make informed decisions, and stay connected to our community of fellow alumni.</p>
             <a href="#service-predeparture" className="lk">Learn more →</a>
           </div>
         </div>

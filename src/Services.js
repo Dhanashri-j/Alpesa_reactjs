@@ -52,7 +52,7 @@ function Services() {
           bullets: ['Visa-filing process guidance', 'Document checklists & templates', 'Financial proof guidelines', 'Mock visa interviews']
         },
         {
-          num: '08',
+          num: '06',
           title: 'Pre & Post Departure Orientation',
           text: 'An end-to-end orientation to help you settle into your new city, make informed decisions, and stay connected to our community of fellow alumni.',
           bullets: ['Campus welcome & campus support', 'Community & social groups', 'Internship & job placement']
@@ -64,10 +64,10 @@ function Services() {
           bullets: ['Flight & visa tracking', 'Travel compliance & requirements', 'Luggage & documentation audit']
         },
         {
-          num: '06',
-          title: 'Pre-Departure Guidance',
-          text: 'From travel logistics to accommodation and banking setup, we help you prepare for arrival and life abroad without confusion.',
-          bullets: ['Travel and accommodation planning', 'SIM and banking setup', 'Arrival and orientation planning']
+          num: '08',
+          title: 'Accommodation',
+          text: 'A safe, suitable place to live, sorted before you arrive — so your first week is about settling in, not searching.',
+          bullets: ['University halls & on-campus housing guidance', 'Private & shared student accommodation options', 'Short-term arrival stays & airport-pickup coordination', 'Roommate & neighbourhood guidance']
         }
       ]
     },
@@ -124,7 +124,7 @@ function Services() {
     '05': 'service-visa',
     '06': 'service-predeparture',
     '07': 'service-travel',
-    '08': 'service-orientation'
+    '08': 'service-accommodation'
   };
 
   useEffect(() => {
